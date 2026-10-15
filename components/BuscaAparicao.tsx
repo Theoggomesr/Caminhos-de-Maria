@@ -29,7 +29,7 @@ export default function BuscaAparicao() {
       <button
         type="submit"
         aria-label="Buscar"
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-900 text-white hover:bg-sky-800"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#14233f] text-white hover:bg-[#c9a46a]"
       >
         <svg
           viewBox="0 0 24 24"

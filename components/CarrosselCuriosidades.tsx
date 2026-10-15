@@ -62,7 +62,7 @@ export default function CarrosselCuriosidades({
       {/* MUDANÇA: o trilho agora é flex e os cards ficam num wrapper com mx-auto */}
       <div
         ref={trilho}
-        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth px-1 pb-4 [scrollbar-none] [&::-webkit-scrollbar]:hidden"
       >
         <div className="mx-auto flex shrink-0 gap-6">
           {curiosidades.map((item) => (

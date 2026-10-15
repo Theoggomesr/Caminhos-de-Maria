@@ -21,7 +21,7 @@ export default function LinhaDoTempoResumo() {
             className="relative w-52 shrink-0 pr-6 pt-6"
           >
             {/* MUDANÇA: top ajustado de -9px para -7px, para centralizar na linha */}
-            <span className="absolute -top-[7px] left-0 h-4 w-4 rounded-full border-2 border-stone-100 bg-amber-600" />
+            <span className="absolute -top-1.75 left-0 h-4 w-4 rounded-full border-2 border-stone-100 bg-amber-600" />
 
             <Link href={`/aparicoes/${a.slug}`} className="group block">
               <time className="font-serif text-xl font-semibold text-sky-900">

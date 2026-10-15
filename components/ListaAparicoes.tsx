@@ -76,7 +76,7 @@ export default function ListaAparicoes({ aparicoes, buscaInicial = "" }: Props) 
                 onClick={() => setContinente(ativo ? null : c)}
                 className={`rounded-full border px-4 py-1 text-sm transition ${
                   ativo
-                    ? "border-sky-900 bg-sky-900 text-white"
+                    ? "border-[#c9a46a] bg-[#14233f] text-white"
                     : "border-stone-300 bg-white text-stone-700 hover:border-stone-500"
                 }`}
               >

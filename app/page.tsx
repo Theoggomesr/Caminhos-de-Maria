@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="bg-[#dbeafe]">
       {/* Imagem com degradê */}
-      <section className="relative h-[380px] w-full md:h-[420px]">
+      <section className="relative h-95 w-full md:h-125">
         <Image
           src="/imagens/banner-home/nossas-senhoras-2.png"
           alt="Nossa Senhora de Fátima com os três pastorinhos"
@@ -26,7 +26,7 @@ export default function Home() {
         />
 
         {/* degradê que dissolve a imagem na cor do fundo */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#dbeafe]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-[#dbeafe]" />
       </section>
 
       {/* Título e busca */}
