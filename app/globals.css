@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3f3f3;
+  --foreground: #292524;
 }
 
 @theme inline {
@@ -12,15 +12,42 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+.header-clouds {
+  background-color: #dbeafe;
+  background-image:
+    radial-gradient(ellipse 130px 38px at 12% 62%, rgba(255, 255, 255, 0.95), transparent 70%),
+    radial-gradient(ellipse 170px 46px at 22% 38%, rgba(255, 255, 255, 0.9), transparent 70%),
+    radial-gradient(ellipse 110px 34px at 38% 70%, rgba(255, 255, 255, 0.85), transparent 70%),
+    radial-gradient(ellipse 190px 50px at 55% 30%, rgba(255, 255, 255, 0.95), transparent 70%),
+    radial-gradient(ellipse 140px 40px at 70% 65%, rgba(255, 255, 255, 0.9), transparent 70%),
+    radial-gradient(ellipse 160px 44px at 88% 42%, rgba(255, 255, 255, 0.85), transparent 70%);
+  background-size: 700px 100%;
+  background-repeat: repeat-x;
+  animation: cloud-drift 120s linear infinite;
+}
+
+@keyframes cloud-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 700px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-clouds {
+    animation: none;
+  }
+}
+
+.background-mapa {
+  background-color: #dbeafe;
+}
+
