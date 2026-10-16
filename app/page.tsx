@@ -11,7 +11,7 @@ import Divisor from "@/components/Divisor";
 export default function Home() {
   const destaques = aparicoes.filter((a) => a.destaque);
   return (
-    <main className="bg-[#dbeafe]">
+    <main className="bg-[#f7f3e9]">
       {/* Imagem com degradê */}
       <section className="relative h-95 w-full md:h-125">
         <Image
@@ -26,7 +26,7 @@ export default function Home() {
         />
 
         {/* degradê que dissolve a imagem na cor do fundo */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-[#dbeafe]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-[#f7f3e9]" />
       </section>
 
       {/* Título e busca */}
@@ -45,7 +45,7 @@ export default function Home() {
         style={{
           // MUDANÇA: degradê de #dbeafe (seção anterior) para #c79d5b
           background:
-            "linear-gradient(to bottom, #dbeafe 0%, #f3f3f3f3 25%, #f3f3f3f3 100%)",
+            "linear-gradient(to bottom, ##f7f3e9 0%, ##f7f3e9 25%, ##f7f3e9 100%)",
         }}
       >
         <div className="mx-auto max-w-6xl">
@@ -72,7 +72,7 @@ export default function Home() {
 
       <Divisor />
       
-      <section className="bg-[#f3f3f3] px-6 pb-16 pt-4">
+      <section className="bg-[#f7f3e9] px-6 pb-16 pt-4">
       <div className="mx-auto max-w-6xl">
         <div className="flex items-end justify-between">
           <h2 className=" font-serif text-2xl text-[#a97c2f]">Linha do tempo</h2>
@@ -92,7 +92,7 @@ export default function Home() {
     
 
 {/* MUDANÇA: a section agora só guarda o fundo claro; o azul vai no bloco de cima */}
-<section className="bg-[#f3f3f3]">
+<section className="bg-[#f7f3e9]">
   {/* MUDANÇA: bloco azul com o título (pb-52 deixa espaço para os cards subirem) */}
   <div className="bg-[#14233f] px-6 pb-52 pt-16">
     <div className="mx-auto max-w-6xl text-center">

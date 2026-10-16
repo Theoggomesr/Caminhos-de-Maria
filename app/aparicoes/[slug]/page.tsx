@@ -1,22 +1,26 @@
+
 import { notFound } from "next/navigation";
 import AparicaoPage from "@/components/AparicaoPage";
-import { aparicoes } from "@/content/aparicoes";
+import { buscarAparicaoPorSlug } from "@/lib/aparicoes";
 
-
-
-export function generateStaticParams() {
-  return aparicoes.map((a) => ({ slug: a.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function Page({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  // Obtém o slug da URL
   const { slug } = await params;
-  const aparicao = aparicoes.find((a) => a.slug === slug);
 
-  if (!aparicao) notFound();
+  // Busca a aparição publicada no Supabase
+  const aparicao = await buscarAparicaoPorSlug(slug);
 
+  // Se não existir ou não estiver publicada, retorna 404
+  if (!aparicao) {
+    notFound();
+  }
+
+  // Mantém o componente visual original
   return <AparicaoPage aparicao={aparicao} />;
 }

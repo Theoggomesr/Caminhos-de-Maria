@@ -1,31 +1,53 @@
-import ListaAparicoes from "@/components/ListaAparicoes";
-import { aparicoes } from "@/content/aparicoes";
+import Link from "next/link";
+import { listarAparicoesPublicadas } from "@/lib/aparicoes";
+import CatalogoAparicoes from "@/components/aparicoes/CatalogoAparicoes";
+import Divisor from "@/components/Divisor";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q } = await searchParams;
+export const dynamic = "force-dynamic";
+
+export default async function PaginaAparicoes() {
+  const aparicoes = await listarAparicoesPublicadas();
 
   return (
-    <main
-      // MUDANÇA: removido bg-[#fbf8f1] e py-10 virou pt-14 pb-10
-      className="min-h-screen px-6 pb-10 pt-14"
-      style={{
-        // MUDANÇA: cor de base creme + degradê do azul nos primeiros 260px
-        backgroundColor: "#fbf8f1",
-        backgroundImage:
-          "linear-gradient(to bottom, #dbeafe 0px, #fbf8f1 260px)",
-      }}
-    >
-      <div className="mx-auto max-w-6xl">
-        <ListaAparicoes
-          key={q ?? ""}
-          aparicoes={aparicoes}
-          buscaInicial={q ?? ""}
-        />
-      </div>
+    <main className="min-h-screen bg-[#f7f3e9]">
+      {/* CABEÇALHO DA PÁGINA */}
+      <section className="px-6 pb-10 pt-16 text-center">
+        <div className="mx-auto max-w-5xl">
+          <h1 className="font-serif text-4xl font-bold text-[#a97c2f] md:text-5xl">
+            Aparições de Nossa Senhora
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[#14233f]/70">
+            Conheça as histórias, mensagens e acontecimentos
+            relacionados às aparições marianas ao redor do mundo.
+          </p>
+        </div>
+      </section>
+
+      {/* CATÁLOGO */}
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <CatalogoAparicoes aparicoes={aparicoes} />
+      </section>
+
+      <Divisor />
+
+      {/* RODAPÉ DA PÁGINA */}
+      <section className=" px-6 py-10 text-center">
+        <p className="font-serif text-lg text-[#14233f]">
+          &quot;Fazei tudo o que Ele vos disser.&quot;
+        </p>
+
+        <p className="mt-2 text-sm text-[#14233f]/60">
+          João 2,5
+        </p>
+
+        <Link
+          href="/"
+          className="mt-6 inline-block text-sm font-semibold text-[#98723e] transition hover:text-[#14233f]"
+        >
+          ← Voltar à página inicial
+        </Link>
+      </section>
     </main>
   );
 }

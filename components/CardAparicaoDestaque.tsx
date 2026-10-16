@@ -15,7 +15,7 @@ export default function CardAparicaoDestaque({ aparicao }: Props) {
       href={`/aparicoes/${aparicao.slug}`}
       className="group block overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
     >
-      <div className="relative h-52 w-full bg-sky-100">
+      <div className="relative h-52 w-full ">
         {imagem && (
           <Image
             src={imagem.src}
