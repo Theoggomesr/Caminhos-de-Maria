@@ -2,6 +2,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import type { AparicaoPublica } from "@/lib/aparicoes";
 
@@ -12,9 +13,18 @@ type Props = {
 export default function CatalogoAparicoes({
   aparicoes,
 }: Props) {
-  const [pesquisa, setPesquisa] = useState("");
+  // Lê o termo enviado pela busca da página inicial
+  const searchParams = useSearchParams();
+  const termoUrl = searchParams.get("q") ?? "";
+
+  const [pesquisaDigitada, setPesquisaDigitada] = useState<string | null>(
+    null
+  );
   const [pais, setPais] = useState("todos");
   const [ordem, setOrdem] = useState("antigas");
+
+  // Utiliza a busca da URL até o usuário editar o campo
+  const pesquisa = pesquisaDigitada ?? termoUrl;
 
   const paises = useMemo(() => {
     return [...new Set(aparicoes.map((a) => a.pais))]
@@ -23,17 +33,13 @@ export default function CatalogoAparicoes({
   }, [aparicoes]);
 
   const filtradas = useMemo(() => {
-    const termo = pesquisa
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim();
-
     const normalizar = (texto: string) =>
       texto
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase();
+
+    const termo = normalizar(pesquisa).trim();
 
     return aparicoes
       .filter((aparicao) => {
@@ -71,7 +77,7 @@ export default function CatalogoAparicoes({
     <div>
       {/* PESQUISA E FILTROS */}
       <div className="mb-8 rounded-xl border border-[#d5b685]/30 bg-white p-6 shadow-sm">
-        <h2 className="mb-5 font-serif text-xl font-semibold text-[#a97c2f]">
+        <h2 className="mb-5 font-serif text-xl font-semibold text-[#14233f]">
           Explore as aparições
         </h2>
 
@@ -80,7 +86,7 @@ export default function CatalogoAparicoes({
           <div>
             <label
               htmlFor="pesquisa"
-              className="mb-2 block text-sm font-medium text-[#a97c2f]"
+              className="mb-2 block text-sm font-medium text-[#14233f]"
             >
               Pesquisar
             </label>
@@ -89,7 +95,7 @@ export default function CatalogoAparicoes({
               id="pesquisa"
               type="search"
               value={pesquisa}
-              onChange={(e) => setPesquisa(e.target.value)}
+              onChange={(e) => setPesquisaDigitada(e.target.value)}
               placeholder="Nome, cidade ou país..."
               className="w-full rounded-lg border border-[#d5b685]/50 bg-[#f7f3e9] px-4 py-3 text-sm text-[#a97c2f] placeholder:text-[#a97c2f]/60 outline-none focus:border-[#c9a46a]"
             />
@@ -99,7 +105,7 @@ export default function CatalogoAparicoes({
           <div>
             <label
               htmlFor="pais"
-              className="mb-2 block text-sm font-medium text-[#a97c2f]"
+              className="mb-2 block text-sm font-medium text-[#14233f]"
             >
               País
             </label>
@@ -124,7 +130,7 @@ export default function CatalogoAparicoes({
           <div>
             <label
               htmlFor="ordem"
-              className="mb-2 block text-sm font-medium text-[#a97c2f]"
+              className="mb-2 block text-sm font-medium text-[#14233f]"
             >
               Ordenar por
             </label>
@@ -245,7 +251,7 @@ export default function CatalogoAparicoes({
             <button
               type="button"
               onClick={() => {
-                setPesquisa("");
+                setPesquisaDigitada("");
                 setPais("todos");
                 setOrdem("antigas");
               }}

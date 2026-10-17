@@ -1,15 +1,24 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import BuscaAparicao from "@/components/BuscaAparicao";
 import CardAparicaoDestaque from "@/components/CardAparicaoDestaque";
-import { aparicoes } from "@/content/aparicoes";
+import {
+  listarAparicoesDestaque,
+  listarAparicoesPublicadas,
+} from "@/lib/aparicoes";
 import LinhaDoTempoResumo from "@/components/LinhaDoTempoResumo";
 import CarrosselCuriosidades from "@/components/CarrosselCuriosidades";
 import { curiosidades } from "@/content/curiosidades";
 import Divisor from "@/components/Divisor";
 
-export default function Home() {
-  const destaques = aparicoes.filter((a) => a.destaque);
+export default async function Home() {
+  const [destaques, aparicoesPublicadas] = await Promise.all([
+    listarAparicoesDestaque(),
+    listarAparicoesPublicadas(),
+  ]);
+
+
   return (
     <main className="bg-[#f7f3e9]">
       {/* Imagem com degradê */}
@@ -22,10 +31,9 @@ export default function Home() {
           sizes="100vw"
           className="object-cover"
           style={{ objectPosition: "50% 75%" }}
-          
         />
 
-        {/* degradê que dissolve a imagem na cor do fundo */}
+        {/* Degradê que dissolve a imagem na cor do fundo */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-[#f7f3e9]" />
       </section>
 
@@ -39,82 +47,87 @@ export default function Home() {
           <BuscaAparicao />
         </div>
       </section>
-        {destaques.length > 0 && (
-      <section
-        className="px-6 pb-14 pt-20" // MUDANÇA: removido bg-[#f3f3f3], pt-14 virou pt-20
-        style={{
-          // MUDANÇA: degradê de #dbeafe (seção anterior) para #c79d5b
-          background:
-            "linear-gradient(to bottom, ##f7f3e9 0%, ##f7f3e9 25%, ##f7f3e9 100%)",
-        }}
-      >
-        <div className="mx-auto max-w-6xl">
-          <div className="flex items-end justify-between">
-            <h2 className="font-serif text-2xl text-[#a97c2f]">
-              Aparições em destaque
-            </h2>
-            <Link
-              href="/aparicoes"
-              className="text-sm text-[#a97c2f] hover:underline" // MUDANÇA: era text-sky-900
-            >
-              Ver todas
-            </Link>
-          </div>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {destaques.map((a) => (
-              <CardAparicaoDestaque key={a.slug} aparicao={a} />
-            ))}
+      {/* APARIÇÕES EM DESTAQUE */}
+      {destaques.length > 0 && (
+        <section
+          className="px-6 pb-14 pt-20"
+          style={{
+            background:
+              "linear-gradient(to bottom, #f7f3e9 0%, #f7f3e9 25%, #f7f3e9 100%)",
+          }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="flex items-end justify-between">
+              <h2 className="font-serif text-2xl text-[#a97c2f]">
+                Aparições em destaque
+              </h2>
+
+              <Link
+                href="/aparicoes"
+                className="text-sm text-[#a97c2f] hover:underline"
+              >
+                Ver todas
+              </Link>
+            </div>
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {destaques.map((a) => (
+                <CardAparicaoDestaque
+                  key={a.slug}
+                  aparicao={a}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
       <Divisor />
-      
+
+      {/* LINHA DO TEMPO */}
       <section className="bg-[#f7f3e9] px-6 pb-16 pt-4">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex items-end justify-between">
-          <h2 className=" font-serif text-2xl text-[#a97c2f]">Linha do tempo</h2>
-          <Link
-            href="/linha-do-tempo"
-            className="text-sm text-[#a97c2f] hover:underline">
-            Ver completa
-          </Link>
+        <div className="mx-auto max-w-6xl">
+          <div className="flex items-end justify-between">
+            <h2 className="font-serif text-2xl text-[#a97c2f]">
+              Linha do tempo
+            </h2>
+
+            <Link
+              href="/linha-do-tempo"
+              className="text-sm text-[#a97c2f] hover:underline"
+            >
+              Ver completa
+            </Link>
+          </div>
+
+          <div className="mt-8">
+            <LinhaDoTempoResumo aparicoes={aparicoesPublicadas} />
+          </div>
+        </div>
+      </section>
+
+      {/* CURIOSIDADES */}
+      <section className="bg-[#f7f3e9]">
+        <div className="bg-[#14233f] px-6 pb-52 pt-16">
+          <div className="mx-auto max-w-6xl text-center">
+            <h2 className="font-serif text-3xl font-semibold uppercase tracking-wide text-[#d5b685]">
+              Você sabia? <span aria-hidden="true">✦</span>
+            </h2>
+
+            <p className="mt-2 text-[#e6dcce]">
+              Curiosidades e fatos fascinantes sobre as aparições de Nossa
+              Senhora pelo mundo.
+            </p>
+          </div>
         </div>
 
-        <div className="mt-8">
-          <LinhaDoTempoResumo />
+        <div className="relative z-10 -mt-44 px-6 pb-16">
+          <div className="mx-auto max-w-6xl">
+            <CarrosselCuriosidades curiosidades={curiosidades} />
+          </div>
         </div>
-      </div>
-    </section>
-    
-    
-
-{/* MUDANÇA: a section agora só guarda o fundo claro; o azul vai no bloco de cima */}
-<section className="bg-[#f7f3e9]">
-  {/* MUDANÇA: bloco azul com o título (pb-52 deixa espaço para os cards subirem) */}
-  <div className="bg-[#14233f] px-6 pb-52 pt-16">
-    <div className="mx-auto max-w-6xl text-center">
-      <h2 className="font-serif text-3xl font-semibold uppercase tracking-wide text-[#d5b685]">
-        Você sabia? <span aria-hidden="true">✦</span>
-      </h2>
-      <p className="mt-2 text-[#e6dcce]">
-        Curiosidades e fatos fascinantes sobre as aparições de Nossa Senhora
-        pelo mundo.
-      </p>
-    </div>
-  </div>
-
-  {/* MUDANÇA: -mt-44 sobe o carrossel sobre o bloco azul */}
-  <div className="relative z-10 -mt-44 px-6 pb-16">
-    <div className="mx-auto max-w-6xl">
-      <CarrosselCuriosidades curiosidades={curiosidades} />
-    </div>
-  </div>
-</section>
-
-
+      </section>
     </main>
   );
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -9,8 +10,14 @@ export default function BuscaAparicao() {
 
   function buscar(e: React.FormEvent) {
     e.preventDefault();
+
     const q = termo.trim();
-    router.push(q ? `/aparicoes?q=${encodeURIComponent(q)}` : "/aparicoes");
+
+    router.push(
+      q
+        ? `/aparicoes?q=${encodeURIComponent(q)}`
+        : "/aparicoes"
+    );
   }
 
   return (
@@ -26,6 +33,7 @@ export default function BuscaAparicao() {
         aria-label="Buscar aparição"
         className="w-full bg-transparent text-sm text-stone-800 outline-none placeholder:text-stone-400"
       />
+
       <button
         type="submit"
         aria-label="Buscar"
