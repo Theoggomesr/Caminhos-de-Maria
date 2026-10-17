@@ -6,24 +6,35 @@ import { createClient } from "@/lib/supabase/server";
 
 import BotaoExcluir from "@/components/admin/BotaoExcluir";
 import BotaoPublicacao from "@/components/admin/BotaoPublicacao";
+import MensagemFeedback from "@/components/admin/MensagemFeedback";
 
-// Garante que a listagem seja carregada dinamicamente
 export const dynamic = "force-dynamic";
 
-export default async function AdminAparicoes() {
-  // 1. Verifica se o usuário é administrador
+type Props = {
+  searchParams: Promise<{
+    sucesso?: string;
+  }>;
+};
+
+export default async function AdminAparicoes({
+  searchParams,
+}: Props) {
+  // Verifica se o usuário possui permissão de administrador.
   await exigirAdministrador();
 
-  // 2. Cria a conexão com o Supabase
+  // Lê os parâmetros da URL.
+  const { sucesso } = await searchParams;
+
+  // Conecta ao Supabase.
   const supabase = await createClient();
 
-  // 3. Busca as aparições cadastradas
+  // Busca todas as aparições cadastradas.
   const { data: aparicoes, error } = await supabase
     .from("aparicoes")
     .select("id, nome, slug, pais, ano, publicado")
     .order("criado_em", { ascending: false });
 
-  // 4. Verifica possíveis erros
+  // Trata erros na consulta.
   if (error) {
     console.error(
       "Erro ao buscar aparições:",
@@ -35,10 +46,10 @@ export default async function AdminAparicoes() {
     );
   }
 
-  // 5. Garante que os dados sejam um array
+  // Garante que a lista seja um array.
   const lista = aparicoes ?? [];
 
-  // 6. Calcula os indicadores
+  // Calcula os indicadores.
   const total = lista.length;
 
   const publicadas = lista.filter(
@@ -51,7 +62,30 @@ export default async function AdminAparicoes() {
     <main className="min-h-screen bg-[#f7f3e9] px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
-        {/* CABEÇALHO DA PÁGINA */}
+        {/* MENSAGENS DE SUCESSO */}
+
+        {sucesso === "cadastro" && (
+          <MensagemFeedback
+            tipo="sucesso"
+            mensagem="Aparição cadastrada com sucesso! Ela foi salva como rascunho e poderá ser publicada quando estiver pronta."
+          />
+        )}
+
+        {sucesso === "edicao" && (
+          <MensagemFeedback
+            tipo="sucesso"
+            mensagem="As informações da aparição foram atualizadas com sucesso."
+          />
+        )}
+
+        {sucesso === "exclusao" && (
+          <MensagemFeedback
+            tipo="sucesso"
+            mensagem="A aparição foi excluída com sucesso."
+          />
+        )}
+
+        {/* CABEÇALHO */}
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
             <Link
@@ -86,7 +120,7 @@ export default async function AdminAparicoes() {
         {/* INDICADORES */}
         <div className="mb-8 grid gap-4 sm:grid-cols-3">
 
-          {/* TOTAL DE APARIÇÕES */}
+          {/* TOTAL */}
           <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
             <p className="text-sm font-medium text-[#14233f]/70">
               Total de aparições
@@ -97,7 +131,7 @@ export default async function AdminAparicoes() {
             </p>
           </div>
 
-          {/* APARIÇÕES PUBLICADAS */}
+          {/* PUBLICADAS */}
           <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
             <p className="text-sm font-medium text-[#14233f]/70">
               Aparições publicadas
@@ -108,7 +142,7 @@ export default async function AdminAparicoes() {
             </p>
           </div>
 
-          {/* APARIÇÕES EM RASCUNHO */}
+          {/* RASCUNHOS */}
           <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
             <p className="text-sm font-medium text-[#14233f]/70">
               Aparições em rascunho
@@ -118,12 +152,13 @@ export default async function AdminAparicoes() {
               {rascunhos}
             </p>
           </div>
+
         </div>
 
         {/* LISTAGEM DAS APARIÇÕES */}
         <section className="overflow-hidden rounded-xl border border-[#c9a46a]/30 bg-white shadow-sm">
 
-          {/* CABEÇALHO DA LISTAGEM */}
+          {/* TÍTULO DA TABELA */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#c9a46a]/20 p-6">
             <div>
               <h2 className="font-serif text-xl font-semibold text-[#14233f]">
@@ -136,11 +171,14 @@ export default async function AdminAparicoes() {
             </div>
 
             <span className="rounded-full bg-[#f7f3e9] px-4 py-2 text-sm font-medium text-[#14233f]">
-              {total} {total === 1 ? "registro" : "registros"}
+              {total}{" "}
+              {total === 1
+                ? "registro"
+                : "registros"}
             </span>
           </div>
 
-          {/* CASO NÃO EXISTAM APARIÇÕES */}
+          {/* LISTA VAZIA */}
           {lista.length === 0 ? (
             <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
 
@@ -167,34 +205,32 @@ export default async function AdminAparicoes() {
             </div>
           ) : (
 
-            /* TABELA DAS APARIÇÕES */
+            /* TABELA COM APARIÇÕES */
             <div className="overflow-x-auto">
               <table className="w-full text-left">
 
                 {/* CABEÇALHO DA TABELA */}
                 <thead className="bg-[#f7f3e9]">
                   <tr className="text-sm font-semibold text-[#14233f]">
-
-                    <th scope="col" className="px-6 py-4">
+                    <th className="px-6 py-4">
                       Aparição
                     </th>
 
-                    <th scope="col" className="px-6 py-4">
+                    <th className="px-6 py-4">
                       País
                     </th>
 
-                    <th scope="col" className="px-6 py-4">
+                    <th className="px-6 py-4">
                       Ano
                     </th>
 
-                    <th scope="col" className="px-6 py-4">
+                    <th className="px-6 py-4">
                       Status
                     </th>
 
-                    <th scope="col" className="px-6 py-4">
+                    <th className="px-6 py-4">
                       Ações
                     </th>
-
                   </tr>
                 </thead>
 
@@ -248,7 +284,7 @@ export default async function AdminAparicoes() {
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap items-center gap-2">
 
-                          {/* BOTÃO EDITAR */}
+                          {/* EDITAR */}
                           <Link
                             href={`/admin/aparicoes/${aparicao.id}/editar`}
                             className="rounded-lg bg-[#14233f] px-3 py-2 text-sm font-medium text-white transition hover:bg-[#243b5c]"
@@ -256,13 +292,13 @@ export default async function AdminAparicoes() {
                             Editar
                           </Link>
 
-                          {/* BOTÃO PUBLICAR / DESPUBLICAR */}
+                          {/* PUBLICAR / DESPUBLICAR */}
                           <BotaoPublicacao
                             id={aparicao.id}
                             publicado={aparicao.publicado}
                           />
 
-                          {/* BOTÃO EXCLUIR */}
+                          {/* EXCLUIR */}
                           <BotaoExcluir
                             id={aparicao.id}
                             nome={aparicao.nome}
@@ -274,7 +310,6 @@ export default async function AdminAparicoes() {
                     </tr>
                   ))}
                 </tbody>
-
               </table>
             </div>
           )}

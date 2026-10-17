@@ -10,10 +10,12 @@ export async function exigirAdministrador() {
 
   const usuarioId = claimsData?.claims?.sub;
 
+  // Usuário sem autenticação válida.
   if (authError || !usuarioId) {
     redirect("/admin/login");
   }
 
+  // Verifica se o usuário está autorizado.
   const { data: administrador, error } = await supabase
     .from("administradores")
     .select("usuario_id")
@@ -21,9 +23,17 @@ export async function exigirAdministrador() {
     .maybeSingle();
 
   if (error) {
-    throw new Error("Erro ao verificar permissões.");
+    console.error(
+      "Erro ao verificar administrador:",
+      error.message
+    );
+
+    throw new Error(
+      "Erro ao verificar permissões."
+    );
   }
 
+  // Usuário autenticado, mas sem permissão administrativa.
   if (!administrador) {
     redirect("/admin/login?erro=permissao");
   }

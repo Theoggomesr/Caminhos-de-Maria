@@ -14,7 +14,7 @@ export default async function LoginAdmin({
   const { erro } = await searchParams;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f3f3f3] px-4">
+    <main className="flex min-h-screen items-center justify-center bg-[#f7f3e9] px-4">
       <div className="w-full max-w-md rounded-2xl border border-[#c9a46a]/40 bg-[#14233f] p-8 shadow-2xl">
 
         <div className="mb-8 text-center">

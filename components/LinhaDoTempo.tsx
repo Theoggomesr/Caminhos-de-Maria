@@ -31,7 +31,7 @@ export default function LinhaDoTempo({ aparicoes }: Props) {
           {/* Marcador da linha do tempo */}
           <span
             aria-hidden="true"
-            className="absolute -left-[41px] mt-2 h-4 w-4 rounded-full border-2 border-white bg-amber-600"
+            className="absolute -left-10.25 mt-2 h-4 w-4 rounded-full border-2 border-white bg-amber-600"
           />
 
           {/* Ano da aparição */}

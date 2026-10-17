@@ -2,278 +2,257 @@
 import Link from "next/link";
 import { exigirAdministrador } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
-import BotaoExcluir from "@/components/admin/BotaoExcluir";
-import BotaoPublicacao from "@/components/admin/BotaoPublicacao";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminAparicoes() {
-  // Verifica se o usuário possui permissão de administrador
+export default async function PainelAdministrativo() {
+  // Verifica se o usuário possui permissão administrativa
   await exigirAdministrador();
 
   // Conecta ao Supabase
   const supabase = await createClient();
 
-  // Busca todas as aparições cadastradas
-  const { data: aparicoes, error } = await supabase
-    .from("aparicoes")
-    .select("id, nome, slug, pais, ano, publicado")
-    .order("criado_em", { ascending: false });
+  // Consulta os dados das aparições e curiosidades
+  const [resultadoAparicoes, resultadoCuriosidades] =
+    await Promise.all([
+      supabase
+        .from("aparicoes")
+        .select("id, publicado"),
 
-  // Trata erros na consulta
-  if (error) {
-    console.error("Erro ao buscar aparições:", error.message);
+      supabase
+        .from("curiosidades")
+        .select("id, publicado"),
+    ]);
+
+  // Verifica possíveis erros
+  if (resultadoAparicoes.error) {
+    console.error(
+      "Erro ao buscar aparições:",
+      resultadoAparicoes.error.message
+    );
 
     throw new Error(
-      "Não foi possível carregar as aparições cadastradas."
+      "Não foi possível carregar os dados das aparições."
     );
   }
 
-  // Garante que a lista seja um array
-  const lista = aparicoes ?? [];
+  if (resultadoCuriosidades.error) {
+    console.error(
+      "Erro ao buscar curiosidades:",
+      resultadoCuriosidades.error.message
+    );
 
-  // Calcula os indicadores
-  const total = lista.length;
+    throw new Error(
+      "Não foi possível carregar os dados das curiosidades."
+    );
+  }
 
-  const publicadas = lista.filter(
-    (aparicao) => aparicao.publicado === true
+  const aparicoes = resultadoAparicoes.data ?? [];
+  const curiosidades = resultadoCuriosidades.data ?? [];
+
+  // Indicadores das aparições
+  const totalAparicoes = aparicoes.length;
+
+  const aparicoesPublicadas = aparicoes.filter(
+    (item) => item.publicado === true
   ).length;
 
-  const rascunhos = total - publicadas;
+  // Indicadores das curiosidades
+  const totalCuriosidades = curiosidades.length;
+
+  const curiosidadesPublicadas = curiosidades.filter(
+    (item) => item.publicado === true
+  ).length;
 
   return (
     <main className="min-h-screen bg-[#f7f3e9] px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
         {/* CABEÇALHO */}
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <Link
-              href="/admin"
-              className="text-sm font-medium text-[#80663d] transition hover:underline"
-            >
-              ← Voltar ao painel
-            </Link>
+        <header className="mb-10">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#a97c2f]">
+            Caminhos de Maria ✦
+          </p>
 
-            <h1 className="mt-4 font-serif text-3xl font-bold text-[#14233f]">
-              Gerenciar Aparições
-            </h1>
+          <h1 className="font-serif text-3xl font-bold text-[#14233f] md:text-4xl">
+            Painel Administrativo
+          </h1>
 
-            <p className="mt-2 text-[#14233f]/70">
-              Cadastre, edite, publique e gerencie as aparições
-              de Nossa Senhora.
-            </p>
-          </div>
+          <p className="mt-3 max-w-2xl text-[#14233f]/70">
+            Gerencie as aparições de Nossa Senhora e as
+            curiosidades apresentadas aos visitantes do site.
+          </p>
+        </header>
 
-          {/* BOTÃO NOVA APARIÇÃO */}
-          <Link
-            href="/admin/aparicoes/nova"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#d5b685] px-5 py-3 font-semibold text-[#14233f] shadow-sm transition hover:bg-[#c9a46a]"
-          >
-            <span className="text-xl leading-none">+</span>
-            Nova aparição
-          </Link>
-        </div>
+        {/* INDICADORES GERAIS */}
+        <section className="mb-10">
+          <h2 className="mb-5 font-serif text-xl font-semibold text-[#14233f]">
+            Visão geral
+          </h2>
 
-        {/* INDICADORES */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
-          {/* TOTAL */}
-          <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-[#14233f]/70">
-              Total de aparições
-            </p>
+            {/* TOTAL DE APARIÇÕES */}
+            <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-[#14233f]/70">
+                Total de aparições
+              </p>
 
-            <p className="mt-3 text-3xl font-bold text-[#14233f]">
-              {total}
-            </p>
-          </div>
-
-          {/* PUBLICADAS */}
-          <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-[#14233f]/70">
-              Aparições publicadas
-            </p>
-
-            <p className="mt-3 text-3xl font-bold text-green-700">
-              {publicadas}
-            </p>
-          </div>
-
-          {/* RASCUNHOS */}
-          <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
-            <p className="text-sm font-medium text-[#14233f]/70">
-              Aparições em rascunho
-            </p>
-
-            <p className="mt-3 text-3xl font-bold text-amber-700">
-              {rascunhos}
-            </p>
-          </div>
-        </div>
-
-        {/* LISTAGEM DAS APARIÇÕES */}
-        <section className="overflow-hidden rounded-xl border border-[#c9a46a]/30 bg-white shadow-sm">
-
-          {/* TÍTULO DA TABELA */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#c9a46a]/20 p-6">
-            <div>
-              <h2 className="font-serif text-xl font-semibold text-[#14233f]">
-                Aparições cadastradas
-              </h2>
-
-              <p className="mt-1 text-sm text-[#14233f]/60">
-                Gerencie os registros armazenados no Supabase.
+              <p className="mt-3 text-3xl font-bold text-[#14233f]">
+                {totalAparicoes}
               </p>
             </div>
 
-            <span className="rounded-full bg-[#f7f3e9] px-4 py-2 text-sm font-medium text-[#14233f]">
-              {total} {total === 1 ? "registro" : "registros"}
-            </span>
+            {/* APARIÇÕES PUBLICADAS */}
+            <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-[#14233f]/70">
+                Aparições publicadas
+              </p>
+
+              <p className="mt-3 text-3xl font-bold text-green-700">
+                {aparicoesPublicadas}
+              </p>
+            </div>
+
+            {/* TOTAL DE CURIOSIDADES */}
+            <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-[#14233f]/70">
+                Total de curiosidades
+              </p>
+
+              <p className="mt-3 text-3xl font-bold text-[#14233f]">
+                {totalCuriosidades}
+              </p>
+            </div>
+
+            {/* CURIOSIDADES PUBLICADAS */}
+            <div className="rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
+              <p className="text-sm font-medium text-[#14233f]/70">
+                Curiosidades publicadas
+              </p>
+
+              <p className="mt-3 text-3xl font-bold text-green-700">
+                {curiosidadesPublicadas}
+              </p>
+            </div>
+
           </div>
+        </section>
 
-          {/* LISTA VAZIA */}
-          {lista.length === 0 ? (
-            <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
+        {/* ÁREAS DE GERENCIAMENTO */}
+        <section>
+          <h2 className="mb-5 font-serif text-xl font-semibold text-[#14233f]">
+            Gerenciamento de conteúdo
+          </h2>
 
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#f7f3e9] text-3xl text-[#c9a46a]">
+          <div className="grid gap-6 md:grid-cols-2">
+
+            {/* CARD DE APARIÇÕES */}
+            <article className="flex flex-col rounded-2xl border border-[#c9a46a]/40 bg-white p-7 shadow-sm transition hover:shadow-md">
+
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-[#f7f3e9] text-3xl text-[#a97c2f]">
                 ✦
               </div>
 
-              <h3 className="font-serif text-xl font-semibold text-[#14233f]">
-                Nenhuma aparição cadastrada
+              <h3 className="font-serif text-2xl font-semibold text-[#14233f]">
+                Gerenciar Aparições
               </h3>
 
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-[#14233f]/60">
-                Você ainda não cadastrou nenhuma aparição.
-                Comece adicionando a primeira aparição
-                de Nossa Senhora ao banco de dados.
+              <p className="mt-3 leading-relaxed text-[#14233f]/70">
+                Cadastre novas aparições de Nossa Senhora,
+                edite informações históricas, gerencie imagens
+                e controle a publicação dos registros.
               </p>
 
-              <Link
-                href="/admin/aparicoes/nova"
-                className="mt-6 rounded-lg bg-[#d5b685] px-6 py-3 font-semibold text-[#14233f] transition hover:bg-[#c9a46a]"
-              >
-                + Cadastrar aparição
-              </Link>
-            </div>
-          ) : (
+              <div className="mt-6 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-[#f7f3e9] px-3 py-1.5 text-[#80663d]">
+                  {totalAparicoes} cadastradas
+                </span>
 
-            /* TABELA COM APARIÇÕES */
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
+                <span className="rounded-full bg-green-50 px-3 py-1.5 text-green-700">
+                  {aparicoesPublicadas} publicadas
+                </span>
+              </div>
 
-                {/* CABEÇALHO DA TABELA */}
-                <thead className="bg-[#f7f3e9]">
-                  <tr className="text-sm font-semibold text-[#14233f]">
-                    <th className="px-6 py-4">
-                      Aparição
-                    </th>
+              <div className="mt-auto pt-8">
+                <Link
+                  href="/admin/aparicoes"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-[#14233f] px-5 py-3 font-semibold text-white transition hover:bg-[#243b5c]"
+                >
+                  Gerenciar aparições →
+                </Link>
+              </div>
+            </article>
 
-                    <th className="px-6 py-4">
-                      País
-                    </th>
+            {/* CARD DE CURIOSIDADES */}
+            <article className="flex flex-col rounded-2xl border border-[#c9a46a]/40 bg-white p-7 shadow-sm transition hover:shadow-md">
 
-                    <th className="px-6 py-4">
-                      Ano
-                    </th>
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-[#f7f3e9] text-3xl text-[#a97c2f]">
+                ✧
+              </div>
 
-                    <th className="px-6 py-4">
-                      Status
-                    </th>
+              <h3 className="font-serif text-2xl font-semibold text-[#14233f]">
+                Gerenciar Curiosidades
+              </h3>
 
-                    <th className="px-6 py-4">
-                      Ações
-                    </th>
-                  </tr>
-                </thead>
+              <p className="mt-3 leading-relaxed text-[#14233f]/70">
+                Cadastre fatos interessantes sobre as aparições,
+                adicione imagens e organize os cartões exibidos
+                no carrossel “Você sabia?” da página inicial.
+              </p>
 
-                {/* CORPO DA TABELA */}
-                <tbody>
-                  {lista.map((aparicao) => (
-                    <tr
-                      key={aparicao.id}
-                      className="border-t border-[#c9a46a]/20 transition hover:bg-[#f7f3e9]/50"
-                    >
+              <div className="mt-6 flex flex-wrap gap-3 text-sm">
+                <span className="rounded-full bg-[#f7f3e9] px-3 py-1.5 text-[#80663d]">
+                  {totalCuriosidades} cadastradas
+                </span>
 
-                      {/* NOME DA APARIÇÃO */}
-                      <td className="px-6 py-4">
-                        <div>
-                          <p className="font-semibold text-[#14233f]">
-                            {aparicao.nome}
-                          </p>
+                <span className="rounded-full bg-green-50 px-3 py-1.5 text-green-700">
+                  {curiosidadesPublicadas} publicadas
+                </span>
+              </div>
 
-                          <p className="mt-1 text-xs text-[#14233f]/50">
-                            {aparicao.slug}
-                          </p>
-                        </div>
-                      </td>
+              <div className="mt-auto pt-8">
+                <Link
+                  href="/admin/curiosidades"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-[#d5b685] px-5 py-3 font-semibold text-[#14233f] transition hover:bg-[#c9a46a]"
+                >
+                  Gerenciar curiosidades →
+                </Link>
+              </div>
+            </article>
 
-                      {/* PAÍS */}
-                      <td className="px-6 py-4 text-sm text-[#14233f]/70">
-                        {aparicao.pais}
-                      </td>
-
-                      {/* ANO */}
-                      <td className="px-6 py-4 text-sm text-[#14233f]/70">
-                        {aparicao.ano ?? "—"}
-                      </td>
-
-                      {/* STATUS */}
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                            aparicao.publicado
-                              ? "bg-green-100 text-green-800"
-                              : "bg-amber-100 text-amber-800"
-                          }`}
-                        >
-                          {aparicao.publicado
-                            ? "Publicada"
-                            : "Rascunho"}
-                        </span>
-                      </td>
-
-                      {/* BOTÕES DE GERENCIAMENTO */}
-                      <td className="px-6 py-4">
-                        <div className="flex flex-wrap items-center gap-2">
-
-                          {/* EDITAR */}
-                          <Link
-                            href={`/admin/aparicoes/${aparicao.id}/editar`}
-                            className="rounded-lg bg-[#14233f] px-3 py-2 text-sm font-medium text-white transition hover:bg-[#243b5c]"
-                          >
-                            Editar
-                          </Link>
-
-                          {/* PUBLICAR / DESPUBLICAR */}
-                          <BotaoPublicacao
-                            id={aparicao.id}
-                            publicado={aparicao.publicado}
-                          />
-
-                          {/* EXCLUIR */}
-                          <BotaoExcluir
-                            id={aparicao.id}
-                            nome={aparicao.nome}
-                          />
-
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          </div>
         </section>
 
-        {/* RODAPÉ DA PÁGINA */}
-        <div className="mt-8 text-center">
+        {/* ACESSO AO SITE */}
+        <section className="mt-10 rounded-xl border border-[#c9a46a]/30 bg-white p-6 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="font-serif text-xl font-semibold text-[#14233f]">
+                Visualizar o site
+              </h2>
+
+              <p className="mt-2 text-sm text-[#14233f]/70">
+                Confira como os conteúdos publicados aparecem
+                para os visitantes.
+              </p>
+            </div>
+
+            <Link
+              href="/"
+              className="rounded-lg border border-[#c9a46a] px-5 py-3 font-semibold text-[#14233f] transition hover:bg-[#f7f3e9]"
+            >
+              Ir para a página inicial →
+            </Link>
+          </div>
+        </section>
+
+        {/* RODAPÉ */}
+        <footer className="mt-10 text-center">
           <p className="text-sm text-[#14233f]/50">
             Caminhos de Maria — Painel Administrativo
           </p>
-        </div>
+        </footer>
 
       </div>
     </main>
