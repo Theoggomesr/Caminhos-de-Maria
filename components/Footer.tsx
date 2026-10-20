@@ -86,7 +86,7 @@ export default async function Footer() {
   const aparicoesRodape = aparicoes.slice(0, 4);
 
   return (
-    <footer className="relative isolate mt-16 bg-[#14233f] text-[#e6dcce]">
+    <footer className="relative isolate  bg-[#14233f] text-[#e6dcce]">
       {/* BACKGROUND DECORATIVO */}
       <div
         aria-hidden="true"
