@@ -1,4 +1,5 @@
 
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,11 +10,50 @@ import {
   HandHeart,
 } from "lucide-react";
 
-export const metadata = {
-  title: "Sobre Nós | Caminhos de Maria",
-  description:
-    "Conheça a história, a missão e os valores do Caminhos de Maria, um espaço dedicado às aparições de Nossa Senhora.",
+// ======================================================
+// SEO DA PÁGINA SOBRE NÓS
+// ======================================================
+
+const titulo = "Sobre Nós";
+
+const descricao =
+  "Conheça o Caminhos de Maria, nossa história, missão " +
+  "e valores. Um projeto dedicado à fé, à devoção " +
+  "e à história das aparições de Nossa Senhora.";
+
+export const metadata: Metadata = {
+  title: titulo,
+
+  description: descricao,
+
+  alternates: {
+    canonical: "/sobre",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Caminhos de Maria",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+    url: "/sobre",
+  },
+
+  twitter: {
+    card: "summary",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+// ======================================================
+// PÁGINA SOBRE NÓS
+// ======================================================
 
 export default function SobrePage() {
   return (
@@ -125,7 +165,7 @@ export default function SobrePage() {
             {/* COLUNA DE IMAGENS */}
             <div className="relative mx-auto w-full max-w-lg">
 
-              <div className="relative h-[440px] sm:h-[520px]">
+              <div className="relative h-110 sm:h-130">
 
                 {/* IMAGEM SUPERIOR */}
                 <div className="absolute right-0 top-0 h-[48%] w-[65%] overflow-hidden rounded-[28px] border-[3px] border-[#c9a46a] bg-[#eee5d4] shadow-lg">
@@ -139,7 +179,7 @@ export default function SobrePage() {
                 </div>
 
                 {/* IMAGEM PRINCIPAL */}
-                <div className="absolute left-0 top-[12%] z-10 h-[65%] w-[55%] overflow-hidden rounded-[28px] border-[4px] border-[#c9a46a] bg-[#eee5d4] shadow-xl">
+                <div className="absolute left-0 top-[12%] z-10 h-[65%] w-[55%] overflow-hidden rounded-[28px] border-4 border-[#c9a46a] bg-[#eee5d4] shadow-xl">
                   <Image
                     src="/imagens/sobre/nossa-senhora-fatima.png"
                     alt="Nossa Senhora de Fátima com os pastorinhos"
@@ -161,7 +201,7 @@ export default function SobrePage() {
                 </div>
 
                 {/* CITAÇÃO BÍBLICA */}
-                <div className="absolute right-[4%] top-[48%] z-20 max-w-[230px] rounded-full border border-[#c9a46a] bg-[#fffaf0] px-5 py-4 text-center shadow-lg">
+                <div className="absolute right-[4%] top-[48%] z-20 max-w-57.5 rounded-full border border-[#c9a46a] bg-[#fffaf0] px-5 py-4 text-center shadow-lg">
                   <p className="font-serif text-sm italic leading-relaxed text-[#14233f]">
                     “Fazei tudo o que Ele vos disser.”
                   </p>

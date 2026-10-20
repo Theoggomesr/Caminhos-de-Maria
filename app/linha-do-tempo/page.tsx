@@ -1,12 +1,53 @@
 
 import type { Metadata } from "next";
+
 import LinhaDoTempo from "@/components/LinhaDoTempo";
 import { listarAparicoesPublicadas } from "@/lib/aparicoes";
 
+// ======================================================
+// SEO DA PÁGINA LINHA DO TEMPO
+// ======================================================
+
+const titulo = "Linha do Tempo das Aparições de Nossa Senhora";
+
+const descricao =
+  "Explore a linha do tempo das aparições de Nossa Senhora. " +
+  "Conheça a história das aparições marianas em ordem " +
+  "cronológica, seus locais e acontecimentos.";
+
 export const metadata: Metadata = {
-  title: "Linha do tempo | Caminhos de Maria",
-  description: "As aparições marianas em ordem cronológica.",
+  title: titulo,
+
+  description: descricao,
+
+  alternates: {
+    canonical: "/linha-do-tempo",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Caminhos de Maria",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+    url: "/linha-do-tempo",
+  },
+
+  twitter: {
+    card: "summary",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+// ======================================================
+// PÁGINA LINHA DO TEMPO
+// ======================================================
 
 export default async function Page() {
   // Busca as aparições publicadas no Supabase

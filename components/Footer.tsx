@@ -86,7 +86,36 @@ export default async function Footer() {
   const aparicoesRodape = aparicoes.slice(0, 4);
 
   return (
-    <footer className="relative mt-16 bg-[#14233f] text-[#e6dcce]">
+    <footer className="relative isolate mt-16 bg-[#14233f] text-[#e6dcce]">
+      {/* BACKGROUND DECORATIVO */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute inset-0 -z-10
+          overflow-hidden
+          bg-[#14233f]
+          bg-[url('/imagens/background-footer.png')]
+          bg-cover
+          bg-position-[75%_center]
+          bg-no-repeat
+          md:bg-right
+        "
+      />
+
+      {/* DEGRADÊ PARA MELHORAR A LEITURA */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute inset-0 -z-10
+          bg-linear-to-r
+          from-[#14233f]/75
+          via-[#14233f]/45
+          to-[#14233f]/15
+        "
+      />
+
       {/* BORDA SUPERIOR COM CURVA E ESTRELA */}
       <div
         aria-hidden="true"
@@ -124,7 +153,8 @@ export default async function Footer() {
         <div className="flex-1 border-b border-[#c9a46a]/70" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pb-8 pt-14">
+      {/* CONTEÚDO DO FOOTER */}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-8 pt-14">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* MARCA */}
           <div>

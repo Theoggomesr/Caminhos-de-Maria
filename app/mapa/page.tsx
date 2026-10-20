@@ -1,18 +1,59 @@
 
 import type { Metadata } from "next";
+
 import MapaAparicoes from "@/components/MapaAparicoes";
 import { listarAparicoesPublicadas } from "@/lib/aparicoes";
 
+// ======================================================
+// SEO DA PÁGINA MAPA DAS APARIÇÕES
+// ======================================================
+
+const titulo = "Mapa das Aparições de Nossa Senhora";
+
+const descricao =
+  "Explore o mapa das aparições de Nossa Senhora pelo mundo. " +
+  "Descubra onde ocorreram as aparições marianas, conheça " +
+  "suas histórias, localizações e acontecimentos.";
+
 export const metadata: Metadata = {
-  title: "Mapa das aparições | Caminhos de Maria",
-  description: "Mapa-múndi com os locais das aparições marianas.",
+  title: titulo,
+
+  description: descricao,
+
+  alternates: {
+    canonical: "/mapa",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Caminhos de Maria",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+    url: "/mapa",
+  },
+
+  twitter: {
+    card: "summary",
+    title: `${titulo} | Caminhos de Maria`,
+    description: descricao,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+// ======================================================
+// PÁGINA MAPA DAS APARIÇÕES
+// ======================================================
 
 export default async function Page() {
   // Busca as aparições publicadas no Supabase
   const aparicoes = await listarAparicoesPublicadas();
 
-  // Mantém apenas as aparições com coordenadas cadastradas
+  // Mantém apenas aparições com coordenadas cadastradas
   const aparicoesComCoordenadas = aparicoes.filter(
     (a) =>
       a.latitude !== null &&

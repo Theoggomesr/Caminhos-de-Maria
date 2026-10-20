@@ -1,4 +1,5 @@
 
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,6 +17,46 @@ import {
 import {
   listarCuriosidadesPublicadas,
 } from "@/lib/curiosidades";
+
+// SEO da página inicial
+const titulo = "Caminhos de Maria";
+
+const descricao =
+  "Conheça a história das aparições de Nossa Senhora pelo mundo. " +
+  "Explore relatos, mensagens, uma linha do tempo e curiosidades " +
+  "sobre as aparições marianas.";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: titulo,
+  },
+
+  description: descricao,
+
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Caminhos de Maria",
+    title: titulo,
+    description: descricao,
+    url: "/",
+  },
+
+  twitter: {
+    card: "summary",
+    title: titulo,
+    description: descricao,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default async function Home() {
   // Busca os dados publicados no Supabase
