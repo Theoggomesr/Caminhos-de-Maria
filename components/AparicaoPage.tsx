@@ -183,7 +183,7 @@ export default function AparicaoPage({ aparicao }: Props) {
         {/* DEGRADÊ SOBRE A IMAGEM */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#14233f] via-[#14233f]/95 to-[#14233f]/45"
+          className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-[#14233f] via-[#14233f]/95 to-[#14233f]/45"
         />
 
         {/* ESTRELA DECORATIVA */}
@@ -195,7 +195,7 @@ export default function AparicaoPage({ aparicao }: Props) {
         </div>
 
         {/* INFORMAÇÕES DO CABEÇALHO */}
-        <div className="relative mx-auto flex min-h-[260px] max-w-7xl flex-col justify-center px-6 py-14 sm:min-h-[320px] sm:px-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-65 max-w-7xl flex-col justify-center px-6 py-14 sm:min-h-80 sm:px-10 lg:py-20">
 
           <p className="mb-4 font-serif text-sm uppercase tracking-[0.25em] text-[#d5b685]">
             Aparições de Nossa Senhora
@@ -509,7 +509,7 @@ export default function AparicaoPage({ aparicao }: Props) {
                 className="
                   relative
                   flex
-                  min-h-[430px]
+                  min-h-107.5
                   flex-col
                   items-center
                   justify-center
@@ -531,7 +531,7 @@ export default function AparicaoPage({ aparicao }: Props) {
                 <div className="relative z-10 w-full min-w-0">
 
                   {/* NOME DA APARIÇÃO */}
-                  <h2 className="break-words font-serif text-xl font-semibold leading-snug text-[#14233f]">
+                  <h2 className="wrap-break-word font-serif text-xl font-semibold leading-snug text-[#14233f]">
                     {aparicao.nome}
                   </h2>
 
@@ -544,7 +544,7 @@ export default function AparicaoPage({ aparicao }: Props) {
                         Mensagem associada
                       </h3>
 
-                      <p className="whitespace-pre-line break-words font-serif text-sm italic leading-6 text-[#765728]">
+                      <p className="whitespace-pre-line wrap-break-word font-serif text-sm italic leading-6 text-[#765728]">
                         {resumoMensagem}
                       </p>
 
@@ -554,13 +554,13 @@ export default function AparicaoPage({ aparicao }: Props) {
 
                   {/* PERÍODO */}
                   {aparicao.periodo && (
-                    <p className="break-words font-serif text-sm text-[#594936]">
+                    <p className="wrap-break-word font-serif text-sm text-[#594936]">
                       {aparicao.periodo}
                     </p>
                   )}
 
                   {/* PAÍS */}
-                  <p className="mt-2 break-words font-serif text-sm text-[#594936]">
+                  <p className="mt-2 wrap-break-word font-serif text-sm text-[#594936]">
                     {aparicao.pais}
                   </p>
 
