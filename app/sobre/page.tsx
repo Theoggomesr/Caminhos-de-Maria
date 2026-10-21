@@ -1,13 +1,16 @@
 
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
+
 import {
   BookOpen,
   Globe2,
-  Heart,
-  Sparkles,
   HandHeart,
+  Heart,
+  ArrowRight,
 } from "lucide-react";
 
 // ======================================================
@@ -23,7 +26,6 @@ const descricao =
 
 export const metadata: Metadata = {
   title: titulo,
-
   description: descricao,
 
   alternates: {
@@ -52,269 +54,530 @@ export const metadata: Metadata = {
 };
 
 // ======================================================
+// ORNAMENTOS REUTILIZÁVEIS
+// ======================================================
+
+function FlorDeLis({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`font-serif leading-none text-[#ad813e] ${className}`}
+    >
+      ⚜
+    </span>
+  );
+}
+
+function Separador({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`flex items-center gap-3 text-[#b28b49] ${className}`}
+    >
+      <span className="h-px flex-1 bg-[#b28b49]/60" />
+
+      <svg
+        viewBox="0 0 40 40"
+        className="h-6 w-6 shrink-0"
+        fill="currentColor"
+      >
+        <path d="M20 2C22 12 28 18 38 20C28 22 22 28 20 38C18 28 12 22 2 20C12 18 18 12 20 2Z" />
+        <circle
+          cx="20"
+          cy="20"
+          r="4"
+          fill="#f7f0df"
+        />
+      </svg>
+
+      <span className="h-px flex-1 bg-[#b28b49]/60" />
+    </div>
+  );
+}
+
+function TituloSecao({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <div className="mb-5">
+      <div className="flex items-center gap-4">
+        <FlorDeLis className="text-3xl sm:text-4xl" />
+
+        <h2 className="font-serif text-3xl font-semibold text-[#14233f] sm:text-4xl">
+          {children}
+        </h2>
+      </div>
+
+      <div className="ml-12 mt-3 flex items-center gap-2">
+        <span className="h-px w-24 bg-[#b28b49]/70" />
+        <span className="text-xs text-[#b28b49]">
+          ✦
+        </span>
+        <span className="h-px w-12 bg-[#b28b49]/70" />
+      </div>
+    </div>
+  );
+}
+
+// ======================================================
 // PÁGINA SOBRE NÓS
 // ======================================================
 
 export default function SobrePage() {
   return (
-    <main className="min-h-screen bg-[#f7f3e9]">
+    <main className="min-h-screen bg-[#f7f0df] text-[#42382d]">
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <section className="relative overflow-hidden px-6 py-16 md:py-24">
+      {/* ================================================= */}
+      {/* 1. HERO — SOBRE NÓS */}
+      {/* ================================================= */}
 
-        {/* ELEMENTOS DECORATIVOS */}
-        <div className="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#d5b685]/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-[#d5b685]/10 blur-3xl" />
+      <section className="relative isolate min-h-[390px] overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
 
-        <div className="relative mx-auto max-w-6xl">
+        {/* IMAGEM DE NOSSA SENHORA EM TODA A LARGURA */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[#14233f] bg-[url('/imagens/background-footer.png')] bg-cover bg-right bg-no-repeat"
+        />
 
-          {/* APRESENTAÇÃO */}
-          <div className="mb-14 text-center">
-            <span className="text-2xl text-[#c9a46a]">
-              ✦
-            </span>
+        {/* TRANSIÇÃO DO PERGAMINHO PARA A ILUSTRAÇÃO */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                90deg,
+                #fbf6e9 0%,
+                #f7f0df 30%,
+                rgba(247,240,223,0.97) 44%,
+                rgba(247,240,223,0.76) 58%,
+                rgba(247,240,223,0.25) 78%,
+                rgba(247,240,223,0) 100%
+              )
+            `,
+          }}
+        />
 
-            <h1 className="mt-3 font-serif text-4xl font-semibold uppercase tracking-wide text-[#a97c2f] md:text-5xl">
+        {/* CAMADA CLARA ADICIONAL NO CELULAR */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[#f7f0df]/75 lg:hidden"
+        />
+
+        {/* CONTEÚDO CENTRALIZADO NA MESMA LARGURA DO SITE */}
+        <div className="relative mx-auto flex min-h-[390px] max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
+
+          {/* TEXTO À ESQUERDA */}
+          <div className="w-full max-w-[610px]">
+
+            {/* IDENTIFICAÇÃO DO PROJETO */}
+            <div className="mb-6 flex items-center gap-3">
+              <FlorDeLis className="text-4xl" />
+
+              <span className="font-serif text-sm uppercase tracking-[0.25em] text-[#a97c2f]">
+                Caminhos de Maria
+              </span>
+            </div>
+
+            {/* TÍTULO NORMAL */}
+            <h1 className="font-serif text-5xl font-medium leading-tight text-[#14233f] sm:text-6xl lg:text-7xl">
               Sobre Nós
             </h1>
 
-            <div className="mx-auto mt-5 h-px w-24 bg-[#c9a46a]" />
+            {/* ORNAMENTO DOURADO */}
+            <div className="mt-6 max-w-[320px]">
+              <Separador />
+            </div>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#14233f]/70">
-              Conheça a essência do Caminhos de Maria,
-              um projeto dedicado à história, à fé e
-              à devoção a Nossa Senhora.
+            {/* APRESENTAÇÃO */}
+            <p className="mt-6 max-w-xl font-serif text-lg leading-8 text-[#594936] sm:text-xl">
+              O Caminhos de Maria nasceu do desejo de
+              aproximar mais pessoas da história e da
+              mensagem de Nossa Senhora, por meio de um
+              conteúdo confiável, acessível e bem organizado.
             </p>
+
           </div>
+        </div>
+      </section>
 
-          {/* TEXTO E IMAGENS */}
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* ================================================= */}
+      {/* 2. MISSÃO E VISÃO */}
+      {/* ================================================= */}
 
-            {/* COLUNA DE TEXTO */}
-            <div className="space-y-10">
+      <section className="relative overflow-hidden px-6 py-16 sm:px-10 lg:py-20">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                135deg,
+                #fbf6e9 0%,
+                #f7f0df 55%,
+                #f1e5d0 100%
+              )
+            `,
+          }}
+        />
 
-              {/* QUEM SOMOS */}
-              <div>
-                <div className="mb-4 flex items-center gap-3">
-                  <Sparkles
-                    size={22}
-                    className="text-[#a97c2f]"
-                  />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
 
-                  <h2 className="font-serif text-2xl font-semibold text-[#14233f]">
-                    Quem Somos
-                  </h2>
-                </div>
-
-                <p className="text-justify leading-8 text-[#14233f]/80">
-                  O Caminhos de Maria nasceu de uma profunda
-                  devoção e do desejo de compartilhar com o
-                  mundo a beleza, a fé e a esperança que as
-                  aparições de Nossa Senhora trazem à
-                  humanidade.
-                </p>
-
-                <p className="mt-4 text-justify leading-8 text-[#14233f]/80">
-                  Nossa missão é reunir, de forma histórica
-                  e espiritual, os relatos das aparições
-                  marianas reconhecidas, oferecendo um
-                  espaço de reflexão, oração e conhecimento.
-                </p>
-              </div>
-
-              {/* DIVISOR */}
-              <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-[#c9a46a]/40" />
-                <span className="text-xl text-[#c9a46a]">
-                  ✦
-                </span>
-                <div className="h-px flex-1 bg-[#c9a46a]/40" />
-              </div>
-
-              {/* NOSSA MISSÃO */}
-              <div>
-                <div className="mb-4 flex items-center gap-3">
-                  <Heart
-                    size={22}
-                    className="text-[#a97c2f]"
-                  />
-
-                  <h2 className="font-serif text-2xl font-semibold text-[#14233f]">
-                    Nossa Missão
-                  </h2>
-                </div>
-
-                <p className="text-justify leading-8 text-[#14233f]/80">
-                  Desejamos que cada visitante encontre aqui
-                  não apenas informações, mas um caminho de
-                  aproximação com a Virgem Maria,
-                  compreendendo suas mensagens de paz,
-                  conversão e amor.
-                </p>
-
-                <p className="mt-4 text-justify leading-8 text-[#14233f]/80">
-                  Queremos facilitar o acesso à história
-                  das aparições e conectar devotos de
-                  diferentes lugares por meio da fé,
-                  valorizando a tradição e a riqueza
-                  espiritual da Igreja Católica.
-                </p>
-              </div>
+          {/* IMAGEM HISTÓRICA */}
+          <div className="relative">
+            <div className="relative h-[340px] overflow-hidden rounded-tl-[45px] rounded-br-[45px] border border-[#c9a46a]/70 bg-[#eee0c6] shadow-md sm:h-[430px]">
+              <Image
+                src="/imagens/sobre/santuario-mariano.png"
+                alt="Santuário mariano, símbolo de fé e peregrinação"
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
             </div>
 
-            {/* COLUNA DE IMAGENS */}
-            <div className="relative mx-auto w-full max-w-lg">
-
-              <div className="relative h-110 sm:h-130">
-
-                {/* IMAGEM SUPERIOR */}
-                <div className="absolute right-0 top-0 h-[48%] w-[65%] overflow-hidden rounded-[28px] border-[3px] border-[#c9a46a] bg-[#eee5d4] shadow-lg">
-                  <Image
-                    src="/imagens/sobre/nossa-senhora-oracao.png"
-                    alt="Representação de Nossa Senhora em oração"
-                    fill
-                    sizes="(max-width: 768px) 65vw, 350px"
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* IMAGEM PRINCIPAL */}
-                <div className="absolute left-0 top-[12%] z-10 h-[65%] w-[55%] overflow-hidden rounded-[28px] border-4 border-[#c9a46a] bg-[#eee5d4] shadow-xl">
-                  <Image
-                    src="/imagens/sobre/nossa-senhora-fatima.png"
-                    alt="Nossa Senhora de Fátima com os pastorinhos"
-                    fill
-                    sizes="(max-width: 768px) 55vw, 300px"
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* IMAGEM INFERIOR */}
-                <div className="absolute bottom-0 right-0 h-[43%] w-[61%] overflow-hidden rounded-[28px] border-[3px] border-[#c9a46a] bg-[#eee5d4] shadow-lg">
-                  <Image
-                    src="/imagens/sobre/santuario-mariano.png"
-                    alt="Fiéis reunidos em oração em um santuário mariano"
-                    fill
-                    sizes="(max-width: 768px) 61vw, 330px"
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* CITAÇÃO BÍBLICA */}
-                <div className="absolute right-[4%] top-[48%] z-20 max-w-57.5 rounded-full border border-[#c9a46a] bg-[#fffaf0] px-5 py-4 text-center shadow-lg">
-                  <p className="font-serif text-sm italic leading-relaxed text-[#14233f]">
-                    “Fazei tudo o que Ele vos disser.”
-                  </p>
-
-                  <span className="mt-1 block text-xs font-semibold text-[#a97c2f]">
-                    João 2,5
-                  </span>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          {/* PILARES DO PROJETO */}
-          <div className="mt-24 border-t border-[#c9a46a]/40 pt-14">
-
-            <div className="mb-10 text-center">
-              <h2 className="font-serif text-3xl font-semibold text-[#14233f]">
-                Nossos Pilares
-              </h2>
-
-              <p className="mt-3 text-[#14233f]/60">
-                Os valores que orientam o Caminhos de Maria.
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-
-              {/* PESQUISA HISTÓRICA */}
-              <div className="rounded-2xl border border-[#c9a46a]/30 bg-white/70 p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                <BookOpen
-                  size={36}
-                  strokeWidth={1.5}
-                  className="mx-auto mb-5 text-[#a97c2f]"
-                />
-
-                <h3 className="font-serif text-xl font-semibold text-[#14233f]">
-                  Pesquisa Histórica
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-[#14233f]/70">
-                  Conteúdo baseado em fontes históricas,
-                  documentos e relatos tradicionais,
-                  valorizando a fidelidade às informações.
-                </p>
-              </div>
-
-              {/* ESPAÇO DE FÉ */}
-              <div className="rounded-2xl border border-[#c9a46a]/30 bg-white/70 p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                <HandHeart
-                  size={36}
-                  strokeWidth={1.5}
-                  className="mx-auto mb-5 text-[#a97c2f]"
-                />
-
-                <h3 className="font-serif text-xl font-semibold text-[#14233f]">
-                  Espaço de Fé
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-[#14233f]/70">
-                  Um ambiente dedicado à espiritualidade,
-                  à oração e ao aprofundamento da devoção
-                  à Virgem Maria.
-                </p>
-              </div>
-
-              {/* ALCANCE GLOBAL */}
-              <div className="rounded-2xl border border-[#c9a46a]/30 bg-white/70 p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                <Globe2
-                  size={36}
-                  strokeWidth={1.5}
-                  className="mx-auto mb-5 text-[#a97c2f]"
-                />
-
-                <h3 className="font-serif text-xl font-semibold text-[#14233f]">
-                  Alcance Global
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-[#14233f]/70">
-                  Reunimos histórias de aparições marianas
-                  de diferentes países, aproximando
-                  pessoas e culturas por meio da fé.
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          {/* CHAMADA FINAL */}
-          <div className="mt-20 text-center">
-
-            <span className="text-2xl text-[#c9a46a]">
+            <span
+              aria-hidden="true"
+              className="absolute -left-3 -top-4 font-serif text-4xl text-[#b28b49]"
+            >
               ✦
             </span>
 
-            <h2 className="mt-4 font-serif text-2xl font-semibold text-[#14233f]">
-              Percorra os Caminhos de Maria
-            </h2>
-
-            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-[#14233f]/70">
-              Conheça os relatos das aparições de Nossa Senhora
-              e descubra histórias de fé, esperança e devoção.
-            </p>
-
-            <Link
-              href="/aparicoes"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#14233f] px-8 py-3 font-semibold text-white transition hover:bg-[#243b5c]"
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-4 -right-2 font-serif text-4xl text-[#b28b49]"
             >
-              Explorar as aparições
-              <span aria-hidden="true">→</span>
-            </Link>
+              ✦
+            </span>
           </div>
 
+          {/* MISSÃO E VISÃO */}
+          <div className="space-y-12">
+            <div>
+              <TituloSecao>
+                Nossa Missão
+              </TituloSecao>
+
+              <p className="font-serif text-lg leading-8 text-[#594936]">
+                Divulgar as aparições de Nossa Senhora,
+                valorizando sua história, seu contexto e
+                suas mensagens, para inspirar a fé, a
+                oração e a devoção mariana na vida das
+                pessoas.
+              </p>
+
+              <p className="mt-4 font-serif text-lg leading-8 text-[#594936]">
+                Desejamos que cada visitante encontre aqui
+                não apenas informações, mas um caminho de
+                aproximação com a Virgem Maria, conhecendo
+                os relatos históricos e a riqueza espiritual
+                da tradição católica.
+              </p>
+            </div>
+
+            <div>
+              <TituloSecao>
+                Nossa Visão
+              </TituloSecao>
+
+              <p className="font-serif text-lg leading-8 text-[#594936]">
+                Ser uma referência acessível em conteúdo
+                sobre as aparições marianas, contribuindo
+                para que mais pessoas conheçam suas histórias,
+                aprofundem sua fé e encontrem inspiração
+                na devoção a Nossa Senhora.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================= */}
+      {/* 3. NOSSOS PILARES */}
+      {/* ================================================= */}
+
+      <section className="border-y border-[#c9a46a]/35 bg-[#f2e5cd]/60 px-6 py-16 sm:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <h2 className="font-serif text-3xl font-semibold text-[#14233f] sm:text-4xl">
+              Nossos Pilares
+            </h2>
+
+            <p className="mt-3 font-serif text-lg text-[#765728]">
+              Os valores que orientam o Caminhos de Maria.
+            </p>
+
+            <div className="mx-auto mt-5 max-w-xs">
+              <Separador />
+            </div>
+          </div>
+
+          <div className="grid gap-10 md:grid-cols-3 md:gap-0">
+
+            {/* HISTÓRIA */}
+            <div className="px-5 text-center md:border-r md:border-[#b28b49]/50">
+              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
+                <BookOpen
+                  size={43}
+                  strokeWidth={1.4}
+                  aria-hidden="true"
+                />
+              </div>
+
+              <h3 className="font-serif text-2xl font-semibold text-[#14233f]">
+                História
+              </h3>
+
+              <p className="mx-auto mt-4 max-w-xs font-serif text-base leading-7 text-[#594936]">
+                Apresentamos o contexto histórico das
+                aparições, com informações organizadas
+                e fundamentadas em fontes confiáveis.
+              </p>
+            </div>
+
+            {/* DEVOÇÃO */}
+            <div className="px-5 text-center md:border-r md:border-[#b28b49]/50">
+              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
+                <HandHeart
+                  size={43}
+                  strokeWidth={1.4}
+                  aria-hidden="true"
+                />
+              </div>
+
+              <h3 className="font-serif text-2xl font-semibold text-[#14233f]">
+                Devoção
+              </h3>
+
+              <p className="mx-auto mt-4 max-w-xs font-serif text-base leading-7 text-[#594936]">
+                Valorizamos a mensagem espiritual de
+                Nossa Senhora e sua presença na vida
+                de oração e na tradição da Igreja.
+              </p>
+            </div>
+
+            {/* ACESSO */}
+            <div className="px-5 text-center">
+              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
+                <Globe2
+                  size={43}
+                  strokeWidth={1.4}
+                  aria-hidden="true"
+                />
+              </div>
+
+              <h3 className="font-serif text-2xl font-semibold text-[#14233f]">
+                Acesso
+              </h3>
+
+              <p className="mx-auto mt-4 max-w-xs font-serif text-base leading-7 text-[#594936]">
+                Reunimos histórias de diferentes
+                países em um único lugar, com conteúdo
+                acessível e fácil de navegar.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================= */}
+      {/* 4. POR QUE ESTE PROJETO? */}
+      {/* ================================================= */}
+
+      <section className="px-6 py-16 sm:px-10 lg:py-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+
+          {/* QUADRO COM CITAÇÃO BÍBLICA */}
+          <div className="relative border border-[#b28b49] bg-[#fff9ed]/70 px-8 py-14 text-center shadow-sm sm:px-12">
+            <span
+              aria-hidden="true"
+              className="absolute left-2 top-1 font-serif text-3xl text-[#b28b49]"
+            >
+              ❦
+            </span>
+
+            <span
+              aria-hidden="true"
+              className="absolute right-2 top-1 font-serif text-3xl text-[#b28b49]"
+            >
+              ❦
+            </span>
+
+            <span
+              aria-hidden="true"
+              className="absolute bottom-1 left-2 rotate-180 font-serif text-3xl text-[#b28b49]"
+            >
+              ❦
+            </span>
+
+            <span
+              aria-hidden="true"
+              className="absolute bottom-1 right-2 rotate-180 font-serif text-3xl text-[#b28b49]"
+            >
+              ❦
+            </span>
+
+            <p className="font-serif text-2xl italic leading-relaxed text-[#765728] sm:text-3xl">
+              “Fazei tudo o que Ele vos disser.”
+            </p>
+
+            <div className="mx-auto my-6 max-w-[220px]">
+              <Separador />
+            </div>
+
+            <p className="font-serif text-sm font-semibold tracking-wide text-[#14233f]">
+              João 2,5
+            </p>
+          </div>
+
+          {/* ORIGEM DO PROJETO */}
+          <div>
+            <TituloSecao>
+              Por que este projeto?
+            </TituloSecao>
+
+            <p className="font-serif text-lg leading-8 text-[#594936]">
+              O Caminhos de Maria nasceu de uma profunda
+              devoção e do desejo de compartilhar com
+              o mundo a beleza, a fé e a esperança que
+              os relatos das aparições de Nossa Senhora
+              despertam.
+            </p>
+
+            <p className="mt-5 font-serif text-lg leading-8 text-[#594936]">
+              Ao longo dos séculos, diferentes lugares
+              tornaram-se conhecidos por relatos de
+              manifestações marianas. Nosso propósito é
+              reunir essas histórias em um único espaço,
+              permitindo que visitantes conheçam seus
+              contextos, mensagens e acontecimentos.
+            </p>
+
+            <p className="mt-5 font-serif text-lg leading-8 text-[#594936]">
+              Por meio de um mapa, uma linha do tempo e
+              páginas dedicadas a cada aparição, buscamos
+              tornar essa jornada de conhecimento mais
+              simples, organizada e inspiradora.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================= */}
+      {/* 5. NOSSO COMPROMISSO */}
+      {/* ================================================= */}
+
+      <section className="relative isolate overflow-hidden border-y border-[#c9a46a]/30 bg-[#f2e5cd]/50">
+        <div className="mx-auto grid max-w-7xl items-center lg:grid-cols-2">
+
+          {/* TEXTO */}
+          <div className="relative z-10 px-6 py-16 sm:px-10 lg:py-20">
+            <TituloSecao>
+              Nosso Compromisso
+            </TituloSecao>
+
+            <p className="max-w-xl font-serif text-lg leading-8 text-[#594936]">
+              Buscamos apresentar informações baseadas
+              em fontes confiáveis, respeitando os
+              ensinamentos da Igreja Católica e a
+              seriedade de cada relato.
+            </p>
+
+            <p className="mt-5 max-w-xl font-serif text-lg leading-8 text-[#594936]">
+              Nosso compromisso é manter o site
+              atualizado, com conteúdo cuidadoso,
+              responsável e que ajude os visitantes
+              a aprofundar seu conhecimento sobre
+              Nossa Senhora.
+            </p>
+
+            <div className="mt-7 flex items-center gap-3 text-[#b28b49]">
+              <Heart
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <span className="font-serif text-sm italic text-[#765728]">
+                Feito com fé, dedicação e devoção.
+              </span>
+            </div>
+          </div>
+
+          {/* IMAGEM */}
+          <div className="relative h-[340px] sm:h-[430px] lg:h-full lg:min-h-[440px]">
+            <Image
+              src="/imagens/sobre/nossa-senhora-fatima.png"
+              alt="Representação de Nossa Senhora de Fátima"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-center"
+            />
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#f2e5cd]/45 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#f2e5cd] lg:via-[#f2e5cd]/15 lg:to-transparent"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================= */}
+      {/* 6. CHAMADA FINAL */}
+      {/* ================================================= */}
+
+      <section className="px-6 py-16 text-center sm:px-10 lg:py-20">
+        <div className="mx-auto max-w-3xl">
+          <FlorDeLis className="text-4xl" />
+
+          <h2 className="mt-5 font-serif text-3xl font-semibold text-[#14233f] sm:text-4xl">
+            Percorra os Caminhos de Maria
+          </h2>
+
+          <div className="mx-auto my-6 max-w-xs">
+            <Separador />
+          </div>
+
+          <p className="mx-auto max-w-2xl font-serif text-lg leading-8 text-[#594936]">
+            Conheça os relatos das aparições de Nossa
+            Senhora e descubra histórias de fé,
+            esperança e devoção.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/aparicoes"
+              className="inline-flex items-center gap-2 rounded-md border border-[#14233f] bg-[#14233f] px-7 py-3 font-serif font-semibold text-[#f7f0df] transition hover:bg-[#263e61]"
+            >
+              Explorar as aparições
+
+              <ArrowRight
+                size={17}
+                aria-hidden="true"
+              />
+            </Link>
+
+            <Link
+              href="/linha-do-tempo"
+              className="inline-flex items-center gap-2 rounded-md border border-[#c9a46a] bg-[#fffaf0]/70 px-7 py-3 font-serif font-semibold text-[#14233f] transition hover:bg-[#f1e2c6]"
+            >
+              Linha do Tempo
+
+              <ArrowRight
+                size={17}
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
         </div>
       </section>
     </main>
