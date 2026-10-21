@@ -13,7 +13,6 @@ type Props = {
 
 // ======================================================
 // ORNAMENTO FLORAL MEDIEVAL
-// MESMO ESTILO DA LINHA DO TEMPO
 // ======================================================
 
 function OrnamentoCanto({
@@ -28,11 +27,7 @@ function OrnamentoCanto({
       viewBox="0 0 64 64"
       aria-hidden="true"
       className={`h-14 w-14 sm:h-16 sm:w-16 ${className}`}
-      style={
-        transform
-          ? { transform }
-          : undefined
-      }
+      style={transform ? { transform } : undefined}
       fill="none"
     >
       {/* CONTORNO DOURADO */}
@@ -72,7 +67,7 @@ function OrnamentoCanto({
         strokeLinecap="round"
       />
 
-      {/* FOLHA SUPERIOR */}
+      {/* FOLHAS */}
       <path
         d="M30 20C32 10 39 10 43 11C42 18 37 23 30 20Z"
         fill="#84905d"
@@ -86,7 +81,6 @@ function OrnamentoCanto({
         strokeWidth="0.8"
       />
 
-      {/* FOLHA LATERAL */}
       <path
         d="M17 34C8 32 7 25 9 21C16 23 20 28 17 34Z"
         fill="#84905d"
@@ -188,24 +182,24 @@ function OrnamentosCard() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-20"
     >
-      {/* CANTO SUPERIOR ESQUERDO */}
+      {/* SUPERIOR ESQUERDO */}
       <OrnamentoCanto
         className="absolute left-0 top-0"
       />
 
-      {/* CANTO SUPERIOR DIREITO */}
+      {/* SUPERIOR DIREITO */}
       <OrnamentoCanto
         className="absolute right-0 top-0"
         transform="scaleX(-1)"
       />
 
-      {/* CANTO INFERIOR ESQUERDO */}
+      {/* INFERIOR ESQUERDO */}
       <OrnamentoCanto
         className="absolute bottom-0 left-0"
         transform="scaleY(-1)"
       />
 
-      {/* CANTO INFERIOR DIREITO */}
+      {/* INFERIOR DIREITO */}
       <OrnamentoCanto
         className="absolute bottom-0 right-0"
         transform="rotate(180deg)"
@@ -291,9 +285,7 @@ export default function CardAparicaoDestaque({
       {/* ============================================== */}
 
       <div className="relative z-10 px-3 pt-3">
-
         <div className="relative h-52 overflow-hidden bg-[#14233f] sm:h-56">
-
           {aparicao.imagem_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -308,12 +300,17 @@ export default function CardAparicaoDestaque({
                 duration-500
                 group-hover:scale-105
               "
+              style={{
+                // PRIORIZA A PARTE SUPERIOR DA IMAGEM
+                // PARA MOSTRAR O ROSTO DE NOSSA SENHORA
+                objectPosition: "center 15%",
+              }}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-[#243b5c] to-[#14233f]">
               <span
-                aria-hidden="true"
                 className="font-serif text-7xl text-[#d5b685]"
+                aria-hidden="true"
               >
                 ✦
               </span>
@@ -323,16 +320,7 @@ export default function CardAparicaoDestaque({
           {/* DEGRADÊ INFERIOR DA IMAGEM */}
           <div
             aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              inset-x-0
-              bottom-0
-              h-16
-              bg-linear-to-t
-              from-[#14233f]/40
-              to-transparent
-            "
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-[#14233f]/40 to-transparent"
           />
 
           {/* ANO DA APARIÇÃO */}
@@ -363,49 +351,14 @@ export default function CardAparicaoDestaque({
       {/* 3. CONTEÚDO DA APARIÇÃO */}
       {/* ============================================== */}
 
-      <div
-        className="
-          relative
-          z-10
-          flex
-          flex-1
-          flex-col
-          px-8
-          pb-10
-          pt-6
-          sm:px-9
-        "
-      >
+      <div className="relative z-10 flex flex-1 flex-col px-8 pb-10 pt-6 sm:px-9">
         {/* TÍTULO */}
-        <h3
-          className="
-            line-clamp-2
-            font-serif
-            text-xl
-            font-semibold
-            leading-snug
-            text-[#14233f]
-            transition-colors
-            group-hover:text-[#98723e]
-            sm:text-2xl
-          "
-        >
+        <h3 className="line-clamp-2 font-serif text-xl font-semibold leading-snug text-[#14233f] transition-colors group-hover:text-[#98723e] sm:text-2xl">
           {aparicao.nome}
         </h3>
 
         {/* LOCALIZAÇÃO */}
-        <p
-          className="
-            mt-3
-            flex
-            items-start
-            gap-2
-            font-serif
-            text-sm
-            leading-6
-            text-[#765728]
-          "
-        >
+        <p className="mt-3 flex items-start gap-2 font-serif text-sm leading-6 text-[#765728]">
           <span
             aria-hidden="true"
             className="shrink-0 text-[#b28b49]"
@@ -420,48 +373,24 @@ export default function CardAparicaoDestaque({
 
         {/* PERÍODO */}
         {aparicao.periodo && (
-          <p
-            className="
-              mt-1
-              pl-5
-              font-serif
-              text-xs
-              italic
-              text-[#98723e]
-            "
-          >
+          <p className="mt-1 pl-5 font-serif text-xs italic text-[#98723e]">
             {aparicao.periodo}
           </p>
         )}
 
-        {/* ============================================ */}
-        {/* 4. SEPARADOR DECORATIVO */}
-        {/* ============================================ */}
-
+        {/* SEPARADOR */}
         <div className="my-5">
           <SeparadorCard />
         </div>
 
-        {/* ============================================ */}
-        {/* 5. DESCRIÇÃO */}
-        {/* ============================================ */}
-
-        <p
-          className="
-            line-clamp-3
-            flex-1
-            font-serif
-            text-sm
-            leading-6
-            text-[#594936]
-          "
-        >
+        {/* DESCRIÇÃO */}
+        <p className="line-clamp-3 flex-1 font-serif text-sm leading-6 text-[#594936]">
           {aparicao.descricao ||
             "Conheça a história, os acontecimentos e as mensagens relacionadas a esta aparição de Nossa Senhora."}
         </p>
 
         {/* ============================================ */}
-        {/* 6. BOTÃO VISUAL CENTRALIZADO */}
+        {/* 4. BOTÃO VISUAL CENTRALIZADO */}
         {/* ============================================ */}
 
         <div
@@ -495,7 +424,6 @@ export default function CardAparicaoDestaque({
             →
           </span>
         </div>
-
       </div>
     </Link>
   );

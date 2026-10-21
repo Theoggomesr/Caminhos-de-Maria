@@ -300,7 +300,6 @@ function correspondePeriodo(
 
 // ======================================================
 // ORNAMENTO FLORAL MEDIEVAL
-// MESMO DESENHO DA LINHA DO TEMPO
 // ======================================================
 
 function OrnamentoCanto({
@@ -318,7 +317,7 @@ function OrnamentoCanto({
       style={transform ? { transform } : undefined}
       fill="none"
     >
-      {/* CONTORNO DOURADO DO CANTO */}
+      {/* CONTORNO DOURADO */}
       <path
         d="M4 55V13Q4 4 13 4H55"
         stroke="#ad813e"
@@ -331,7 +330,7 @@ function OrnamentoCanto({
         strokeWidth="0.8"
       />
 
-      {/* RAMO PRINCIPAL CURVADO */}
+      {/* RAMO PRINCIPAL */}
       <path
         d="M7 48C16 42 13 30 26 25C37 21 40 13 48 7"
         stroke="#98723e"
@@ -339,7 +338,7 @@ function OrnamentoCanto({
         strokeLinecap="round"
       />
 
-      {/* ARABESCO SUPERIOR */}
+      {/* ARABESCOS */}
       <path
         d="M22 14C29 11 33 15 32 20C31 24 25 24 24 20C24 18 26 17 28 18"
         stroke="#b28b49"
@@ -347,7 +346,6 @@ function OrnamentoCanto({
         strokeLinecap="round"
       />
 
-      {/* ARABESCO LATERAL */}
       <path
         d="M14 28C11 35 15 40 21 39C26 38 26 32 22 31C20 31 19 33 20 35"
         stroke="#b28b49"
@@ -355,7 +353,7 @@ function OrnamentoCanto({
         strokeLinecap="round"
       />
 
-      {/* FOLHA SUPERIOR */}
+      {/* FOLHAS */}
       <path
         d="M30 20C32 10 39 10 43 11C42 18 37 23 30 20Z"
         fill="#84905d"
@@ -369,7 +367,6 @@ function OrnamentoCanto({
         strokeWidth="0.8"
       />
 
-      {/* FOLHA LATERAL */}
       <path
         d="M17 34C8 32 7 25 9 21C16 23 20 28 17 34Z"
         fill="#84905d"
@@ -383,7 +380,7 @@ function OrnamentoCanto({
         strokeWidth="0.8"
       />
 
-      {/* PEQUENA FLOR MEDIEVAL */}
+      {/* FLOR MEDIEVAL */}
       <g transform="translate(27 27)">
         <ellipse
           cy="-7"
@@ -444,19 +441,8 @@ function OrnamentoCanto({
         strokeWidth="1"
       />
 
-      <circle
-        cx="48"
-        cy="7"
-        r="1.6"
-        fill="#d5b685"
-      />
-
-      <circle
-        cx="7"
-        cy="48"
-        r="1.6"
-        fill="#d5b685"
-      />
+      <circle cx="48" cy="7" r="1.6" fill="#d5b685" />
+      <circle cx="7" cy="48" r="1.6" fill="#d5b685" />
     </svg>
   );
 }
@@ -471,24 +457,20 @@ function OrnamentosCard() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-20"
     >
-      {/* SUPERIOR ESQUERDO */}
       <OrnamentoCanto
         className="absolute left-0 top-0"
       />
 
-      {/* SUPERIOR DIREITO */}
       <OrnamentoCanto
         className="absolute right-0 top-0"
         transform="scaleX(-1)"
       />
 
-      {/* INFERIOR ESQUERDO */}
       <OrnamentoCanto
         className="absolute bottom-0 left-0"
         transform="scaleY(-1)"
       />
 
-      {/* INFERIOR DIREITO */}
       <OrnamentoCanto
         className="absolute bottom-0 right-0"
         transform="rotate(180deg)"
@@ -545,7 +527,7 @@ function CardAparicao({
       <OrnamentosCard />
 
       {/* ============================================== */}
-      {/* IMAGEM DA APARIÇÃO */}
+      {/* IMAGEM DA APARIÇÃO — ENQUADRAMENTO CORRIGIDO */}
       {/* ============================================== */}
 
       <Link
@@ -553,7 +535,15 @@ function CardAparicao({
         aria-label={`Conhecer ${aparicao.nome}`}
         className="relative z-10 block border-b border-[#c9a46a]/45 p-2.5"
       >
-        <div className="relative h-44 overflow-hidden bg-[#e5d7bd] sm:h-48">
+        <div
+          className="
+            relative
+            h-52
+            overflow-hidden
+            bg-[#e5d7bd]
+            sm:h-56
+          "
+        >
           {aparicao.imagem_url && !erroImagem ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -565,6 +555,7 @@ function CardAparicao({
                 h-full
                 w-full
                 object-cover
+                object-top
                 transition-transform
                 duration-500
                 group-hover:scale-105
@@ -680,7 +671,6 @@ export default function CatalogoAparicoes({
 }: Props) {
   const searchParams = useSearchParams();
 
-  // Pesquisa enviada pela página inicial
   const termoUrl = searchParams.get("q") ?? "";
 
   const [pesquisaDigitada, setPesquisaDigitada] =
@@ -700,7 +690,6 @@ export default function CatalogoAparicoes({
   const [paginaSolicitada, setPaginaSolicitada] =
     useState(1);
 
-  // Usa a busca da URL até o usuário editar o campo
   const pesquisa = pesquisaDigitada ?? termoUrl;
 
   // ====================================================
@@ -718,7 +707,7 @@ export default function CatalogoAparicoes({
   }, [aparicoes]);
 
   // ====================================================
-  // FILTROS E ORDENAÇÃO
+  // PESQUISA, FILTROS E ORDENAÇÃO
   // ====================================================
 
   const filtradas = useMemo(() => {
@@ -805,10 +794,7 @@ export default function CatalogoAparicoes({
 
   const inicioBotoes = Math.max(
     1,
-    Math.min(
-      paginaAtual - 2,
-      totalPaginas - 4
-    )
+    Math.min(paginaAtual - 2, totalPaginas - 4)
   );
 
   const paginasVisiveis = Array.from(

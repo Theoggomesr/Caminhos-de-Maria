@@ -5,6 +5,10 @@ import type { ReactNode } from "react";
 import type { AparicaoPublica } from "@/lib/aparicoes";
 import LetraCapitular from "@/components/LetraCapitular";
 
+// ======================================================
+// TIPOS
+// ======================================================
+
 type Props = {
   aparicao: AparicaoPublica;
 };
@@ -14,7 +18,10 @@ type ItemNavegacao = {
   label: string;
 };
 
+// ======================================================
 // ORNAMENTO DOURADO ENTRE AS SEÇÕES
+// ======================================================
+
 function Ornamento({
   className = "",
 }: {
@@ -57,7 +64,208 @@ function Ornamento({
   );
 }
 
+// ======================================================
+// ORNAMENTO FLORAL MEDIEVAL
+// ======================================================
+
+function OrnamentoCanto({
+  className = "",
+  transform,
+}: {
+  className?: string;
+  transform?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      className={`h-12 w-12 sm:h-14 sm:w-14 ${className}`}
+      style={transform ? { transform } : undefined}
+      fill="none"
+    >
+      {/* CONTORNO DOURADO DO CANTO */}
+      <path
+        d="M4 55V13Q4 4 13 4H55"
+        stroke="#ad813e"
+        strokeWidth="1.8"
+      />
+
+      <path
+        d="M9 46V15Q9 9 15 9H46"
+        stroke="#d9b873"
+        strokeWidth="0.8"
+      />
+
+      {/* RAMO PRINCIPAL */}
+      <path
+        d="M7 48C16 42 13 30 26 25C37 21 40 13 48 7"
+        stroke="#98723e"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+      />
+
+      {/* ARABESCO SUPERIOR */}
+      <path
+        d="M22 14C29 11 33 15 32 20C31 24 25 24 24 20C24 18 26 17 28 18"
+        stroke="#b28b49"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+
+      {/* ARABESCO LATERAL */}
+      <path
+        d="M14 28C11 35 15 40 21 39C26 38 26 32 22 31C20 31 19 33 20 35"
+        stroke="#b28b49"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+
+      {/* FOLHA SUPERIOR */}
+      <path
+        d="M30 20C32 10 39 10 43 11C42 18 37 23 30 20Z"
+        fill="#84905d"
+        stroke="#97783e"
+        strokeWidth="1"
+      />
+
+      <path
+        d="M31 19L41 12"
+        stroke="#e0c786"
+        strokeWidth="0.8"
+      />
+
+      {/* FOLHA LATERAL */}
+      <path
+        d="M17 34C8 32 7 25 9 21C16 23 20 28 17 34Z"
+        fill="#84905d"
+        stroke="#97783e"
+        strokeWidth="1"
+      />
+
+      <path
+        d="M16 32L10 23"
+        stroke="#e0c786"
+        strokeWidth="0.8"
+      />
+
+      {/* FLOR MEDIEVAL */}
+      <g transform="translate(27 27)">
+        <ellipse
+          cy="-7"
+          rx="4"
+          ry="7"
+          fill="#355978"
+          stroke="#b28b49"
+          strokeWidth="0.9"
+        />
+
+        <ellipse
+          cy="7"
+          rx="4"
+          ry="7"
+          fill="#355978"
+          stroke="#b28b49"
+          strokeWidth="0.9"
+        />
+
+        <ellipse
+          cx="-7"
+          rx="7"
+          ry="4"
+          fill="#8f4440"
+          stroke="#b28b49"
+          strokeWidth="0.9"
+        />
+
+        <ellipse
+          cx="7"
+          rx="7"
+          ry="4"
+          fill="#8f4440"
+          stroke="#b28b49"
+          strokeWidth="0.9"
+        />
+
+        <circle
+          r="3.5"
+          fill="#d5b685"
+          stroke="#98723e"
+          strokeWidth="1"
+        />
+
+        <circle
+          r="1.2"
+          fill="#14233f"
+        />
+      </g>
+
+      {/* PONTOS DOURADOS */}
+      <circle
+        cx="13"
+        cy="13"
+        r="2.5"
+        fill="#d5b685"
+        stroke="#98723e"
+        strokeWidth="1"
+      />
+
+      <circle
+        cx="48"
+        cy="7"
+        r="1.6"
+        fill="#d5b685"
+      />
+
+      <circle
+        cx="7"
+        cy="48"
+        r="1.6"
+        fill="#d5b685"
+      />
+    </svg>
+  );
+}
+
+// ======================================================
+// ORNAMENTOS NOS QUATRO CANTOS
+// ======================================================
+
+function OrnamentosCard() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0"
+    >
+      {/* SUPERIOR ESQUERDO */}
+      <OrnamentoCanto
+        className="absolute left-0 top-0"
+      />
+
+      {/* SUPERIOR DIREITO */}
+      <OrnamentoCanto
+        className="absolute right-0 top-0"
+        transform="scaleX(-1)"
+      />
+
+      {/* INFERIOR ESQUERDO */}
+      <OrnamentoCanto
+        className="absolute bottom-0 left-0"
+        transform="scaleY(-1)"
+      />
+
+      {/* INFERIOR DIREITO */}
+      <OrnamentoCanto
+        className="absolute bottom-0 right-0"
+        transform="rotate(180deg)"
+      />
+    </div>
+  );
+}
+
+// ======================================================
 // TÍTULO DAS SEÇÕES
+// ======================================================
+
 function TituloSecao({
   id,
   children,
@@ -76,7 +284,10 @@ function TituloSecao({
   );
 }
 
+// ======================================================
 // TEXTO PADRÃO DAS SEÇÕES
+// ======================================================
+
 function TextoSecao({
   texto,
 }: {
@@ -89,15 +300,22 @@ function TextoSecao({
   );
 }
 
+// ======================================================
 // COMPONENTE PRINCIPAL
-export default function AparicaoPage({ aparicao }: Props) {
+// ======================================================
+
+export default function AparicaoPage({
+  aparicao,
+}: Props) {
   // Evita erros caso não existam videntes cadastrados
   const videntes = aparicao.videntes ?? [];
 
-  // ITENS DO MENU LATERAL
+  // ====================================================
+  // MENU DE NAVEGAÇÃO LATERAL
+  // ====================================================
+
   const navegacao: ItemNavegacao[] = [];
 
-  // HISTÓRIA AGORA APARECE PRIMEIRO
   if (aparicao.historia) {
     navegacao.push({
       id: "historia",
@@ -105,7 +323,6 @@ export default function AparicaoPage({ aparicao }: Props) {
     });
   }
 
-  // DESCRIÇÃO AGORA APARECE DEPOIS DA HISTÓRIA
   if (aparicao.descricao) {
     navegacao.push({
       id: "descricao",
@@ -149,19 +366,29 @@ export default function AparicaoPage({ aparicao }: Props) {
     label: "Informações",
   });
 
-  // RESUMO DA MENSAGEM PARA O QUADRO LATERAL
+  // ====================================================
+  // PRIMEIRO PARÁGRAFO DA MENSAGEM
+  // ====================================================
+
+  // Mostra somente o primeiro parágrafo no quadro lateral.
+  // O texto completo continua na seção "Mensagem".
+  //
+  // Os parágrafos devem estar separados por uma
+  // linha em branco no cadastro do Supabase.
+
   const resumoMensagem = aparicao.mensagem
-    ? aparicao.mensagem.length > 200
-      ? `${aparicao.mensagem.slice(0, 197).trimEnd()}...`
-      : aparicao.mensagem
+    ? aparicao.mensagem
+        .trim()
+        .split(/\r?\n\s*\r?\n/)[0]
+        .trim()
     : null;
 
   return (
-    <main className="min-h-screen bg-[#f7f0df] text-[#30291f]">
+    <main className="min-h-screen text-[#30291f]">
 
-      {/* ====================================== */}
-      {/* CABEÇALHO DA APARIÇÃO */}
-      {/* ====================================== */}
+      {/* ============================================== */}
+      {/* 1. CABEÇALHO DA APARIÇÃO */}
+      {/* ============================================== */}
 
       <section className="relative isolate overflow-hidden border-b border-[#c9a46a] bg-[#14233f]">
 
@@ -169,21 +396,36 @@ export default function AparicaoPage({ aparicao }: Props) {
         {aparicao.imagem_url && (
           <div
             aria-hidden="true"
-            className="absolute inset-y-0 right-0 -z-10 w-full sm:w-[65%] lg:w-[50%]"
+            className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full sm:w-[65%] lg:w-[58%]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={aparicao.imagem_url}
               alt=""
-              className="h-full w-full object-cover object-center opacity-60"
+              className="h-full w-full object-cover object-[72%_12%] opacity-75"
             />
           </div>
         )}
 
-        {/* DEGRADÊ SOBRE A IMAGEM */}
+        {/* DEGRADÊ AZUL-MARINHO */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-[#14233f] via-[#14233f]/95 to-[#14233f]/45"
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(
+                90deg,
+                #14233f 0%,
+                #14233f 40%,
+                rgba(20,35,63,0.96) 52%,
+                rgba(20,35,63,0.90) 62%,
+                rgba(20,35,63,0.76) 72%,
+                rgba(20,35,63,0.48) 82%,
+                rgba(20,35,63,0.18) 92%,
+                rgba(20,35,63,0) 100%
+              )
+            `,
+          }}
         />
 
         {/* ESTRELA DECORATIVA */}
@@ -195,7 +437,7 @@ export default function AparicaoPage({ aparicao }: Props) {
         </div>
 
         {/* INFORMAÇÕES DO CABEÇALHO */}
-        <div className="relative mx-auto flex min-h-65 max-w-7xl flex-col justify-center px-6 py-14 sm:min-h-80 sm:px-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-100 max-w-7xl flex-col justify-center px-6 py-14 sm:px-10 lg:py-20">
 
           <p className="mb-4 font-serif text-sm uppercase tracking-[0.25em] text-[#d5b685]">
             Aparições de Nossa Senhora
@@ -209,7 +451,10 @@ export default function AparicaoPage({ aparicao }: Props) {
 
             {aparicao.local && (
               <span className="flex items-center gap-2">
-                <span className="text-[#d5b685]">
+                <span
+                  aria-hidden="true"
+                  className="text-[#d5b685]"
+                >
                   ✦
                 </span>
 
@@ -218,7 +463,10 @@ export default function AparicaoPage({ aparicao }: Props) {
             )}
 
             <span className="flex items-center gap-2">
-              <span className="text-[#d5b685]">
+              <span
+                aria-hidden="true"
+                className="text-[#d5b685]"
+              >
                 ✦
               </span>
 
@@ -227,7 +475,10 @@ export default function AparicaoPage({ aparicao }: Props) {
 
             {aparicao.periodo && (
               <span className="flex items-center gap-2">
-                <span className="text-[#d5b685]">
+                <span
+                  aria-hidden="true"
+                  className="text-[#d5b685]"
+                >
                   ✦
                 </span>
 
@@ -239,38 +490,17 @@ export default function AparicaoPage({ aparicao }: Props) {
         </div>
       </section>
 
-      {/* ====================================== */}
-      {/* FUNDO EM ESTILO PERGAMINHO */}
-      {/* ====================================== */}
+      {/* ============================================== */}
+      {/* 2. CONTEÚDO PRINCIPAL */}
+      {/* FUNDO DEFINIDO NO GLOBALS.CSS */}
+      {/* ============================================== */}
 
-      <div
-        className="relative"
-        style={{
-          backgroundImage: `
-            radial-gradient(
-              ellipse at 15% 15%,
-              rgba(201, 164, 106, 0.13),
-              transparent 45%
-            ),
-            radial-gradient(
-              ellipse at 85% 75%,
-              rgba(201, 164, 106, 0.11),
-              transparent 50%
-            ),
-            linear-gradient(
-              135deg,
-              #fbf6e9 0%,
-              #f7f0df 50%,
-              #f2e6d0 100%
-            )
-          `,
-        }}
-      >
+      <div className="relative">
         <div className="mx-auto max-w-7xl px-6 pb-20 pt-7 sm:px-10">
 
-          {/* ====================================== */}
+          {/* ========================================== */}
           {/* CAMINHO DE NAVEGAÇÃO */}
-          {/* ====================================== */}
+          {/* ========================================== */}
 
           <nav
             aria-label="Caminho de navegação"
@@ -278,47 +508,49 @@ export default function AparicaoPage({ aparicao }: Props) {
           >
             <Link
               href="/"
-              className="hover:text-[#14233f]"
+              className="transition hover:text-[#14233f]"
             >
               Início
             </Link>
 
-            <span aria-hidden="true">
-              ›
-            </span>
+            <span aria-hidden="true">›</span>
 
             <Link
               href="/aparicoes"
-              className="hover:text-[#14233f]"
+              className="transition hover:text-[#14233f]"
             >
               Aparições
             </Link>
 
-            <span aria-hidden="true">
-              ›
-            </span>
+            <span aria-hidden="true">›</span>
 
-            <span className="text-[#14233f]">
+            <span
+              aria-current="page"
+              className="text-[#14233f]"
+            >
               {aparicao.nome}
             </span>
           </nav>
 
-          {/* ====================================== */}
-          {/* LAYOUT PRINCIPAL DE TRÊS COLUNAS */}
-          {/* ====================================== */}
+          {/* ========================================== */}
+          {/* 3. LAYOUT PRINCIPAL DE TRÊS COLUNAS */}
+          {/* ========================================== */}
 
-          <div className="grid items-start gap-8 lg:grid-cols-[220px_minmax(0,1fr)_240px] xl:gap-10">
+          <div className="grid items-start gap-8 lg:grid-cols-[220px_minmax(0,1fr)_260px] xl:gap-10">
 
-            {/* ====================================== */}
+            {/* ======================================== */}
             {/* MENU LATERAL ESQUERDO */}
-            {/* ====================================== */}
+            {/* ======================================== */}
 
             <aside className="lg:sticky lg:top-24">
+
               <nav aria-label="Seções da aparição">
 
                 <div className="overflow-hidden rounded-md border border-[#c9a46a]/40 bg-[#fffaf0]/70 shadow-sm">
 
+                  {/* TÍTULO DO MENU */}
                   <div className="bg-[#14233f] px-5 py-4 font-serif text-lg font-semibold text-[#f7f0df]">
+
                     <span className="mr-2 text-[#d5b685]">
                       ✦
                     </span>
@@ -326,6 +558,7 @@ export default function AparicaoPage({ aparicao }: Props) {
                     Nesta página
                   </div>
 
+                  {/* LINKS DO MENU */}
                   <ul className="divide-y divide-[#c9a46a]/30 px-4">
 
                     {navegacao.map((item) => (
@@ -340,14 +573,15 @@ export default function AparicaoPage({ aparicao }: Props) {
                     ))}
 
                   </ul>
+
                 </div>
 
               </nav>
             </aside>
 
-            {/* ====================================== */}
+            {/* ======================================== */}
             {/* CONTEÚDO CENTRAL */}
-            {/* ====================================== */}
+            {/* ======================================== */}
 
             <div className="min-w-0 space-y-12">
 
@@ -390,7 +624,7 @@ export default function AparicaoPage({ aparicao }: Props) {
               )}
 
               {/* ====================================== */}
-              {/* 3. MENSAGEM */}
+              {/* 3. MENSAGEM COMPLETA */}
               {/* ====================================== */}
 
               {aparicao.mensagem && (
@@ -437,11 +671,12 @@ export default function AparicaoPage({ aparicao }: Props) {
                     ))}
 
                   </ul>
+
                 </section>
               )}
 
               {/* ====================================== */}
-              {/* 5. RECONHECIMENTO PELA IGREJA */}
+              {/* 5. RECONHECIMENTO DA IGREJA */}
               {/* ====================================== */}
 
               {aparicao.reconhecimento && (
@@ -492,9 +727,9 @@ export default function AparicaoPage({ aparicao }: Props) {
 
             </div>
 
-            {/* ====================================== */}
+            {/* ======================================== */}
             {/* COLUNA LATERAL DIREITA */}
-            {/* ====================================== */}
+            {/* ======================================== */}
 
             <aside
               id="informacoes"
@@ -502,49 +737,47 @@ export default function AparicaoPage({ aparicao }: Props) {
             >
 
               {/* ====================================== */}
-              {/* QUADRO COM MOLDURA MEDIEVAL */}
+              {/* QUADRO COM ORNAMENTOS FLORAIS */}
               {/* ====================================== */}
 
               <div
                 className="
                   relative
-                  flex
-                  min-h-107.5
-                  flex-col
-                  items-center
-                  justify-center
-                  bg-transparent
-                  px-9
-                  py-20
+                  overflow-hidden
+                  rounded-sm
+                  border
+                  border-[#c9a46a]/75
+                  bg-[#fff9ed]/90
+                  px-5
+                  py-8
                   text-center
+                  shadow-sm
                 "
-                style={{
-                  backgroundImage:
-                    "url('/imagens/moldura-lateral.png')",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "100% 100%",
-                }}
               >
 
-                {/* CONTEÚDO DA MOLDURA */}
-                <div className="relative z-10 w-full min-w-0">
+                {/* ORNAMENTOS NOS QUATRO CANTOS */}
+                <OrnamentosCard />
+
+                <div className="relative z-10 px-4 py-4">
 
                   {/* NOME DA APARIÇÃO */}
-                  <h2 className="wrap-break-word font-serif text-xl font-semibold leading-snug text-[#14233f]">
+                  <h2 className="font-serif text-2xl font-semibold leading-snug text-[#14233f]">
                     {aparicao.nome}
                   </h2>
 
-                  <Ornamento className="my-5" />
+                  <Ornamento className="my-6" />
 
-                  {/* MENSAGEM ASSOCIADA */}
+                  {/* ================================== */}
+                  {/* SOMENTE O PRIMEIRO PARÁGRAFO */}
+                  {/* ================================== */}
+
                   {resumoMensagem && (
                     <>
-                      <h3 className="mb-3 font-serif text-xs font-semibold uppercase tracking-widest text-[#a97c2f]">
+                      <h3 className="mb-3 font-serif text-xs font-semibold uppercase tracking-[0.18em] text-[#a97c2f]">
                         Mensagem associada
                       </h3>
 
-                      <p className="whitespace-pre-line wrap-break-word font-serif text-sm italic leading-6 text-[#765728]">
+                      <p className="whitespace-pre-line font-serif text-base italic leading-8 text-[#765728]">
                         {resumoMensagem}
                       </p>
 
@@ -554,13 +787,13 @@ export default function AparicaoPage({ aparicao }: Props) {
 
                   {/* PERÍODO */}
                   {aparicao.periodo && (
-                    <p className="wrap-break-word font-serif text-sm text-[#594936]">
+                    <p className="font-serif text-sm text-[#594936]">
                       {aparicao.periodo}
                     </p>
                   )}
 
                   {/* PAÍS */}
-                  <p className="mt-2 wrap-break-word font-serif text-sm text-[#594936]">
+                  <p className="mt-2 font-serif text-sm text-[#594936]">
                     {aparicao.pais}
                   </p>
 

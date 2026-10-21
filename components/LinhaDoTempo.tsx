@@ -498,7 +498,7 @@ export default function LinhaDoTempo({
               left-3.5
               top-4
               z-0
-              w-[2px]
+              w-0.5
               lg:left-1/2
               lg:-translate-x-1/2
             "
