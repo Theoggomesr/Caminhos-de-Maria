@@ -152,6 +152,7 @@ function Ornamento() {
         fill="currentColor"
       >
         <path d="M20 2C22 12 28 18 38 20C28 22 22 28 20 38C18 28 12 22 2 20C12 18 18 12 20 2Z" />
+
         <circle
           cx="20"
           cy="20"
@@ -183,7 +184,9 @@ function ImagemAparicao({
       className="group block"
     >
       <div className="relative overflow-hidden rounded-md border border-[#c9a46a]/70 bg-[#e8d7b9] p-1.5 shadow-sm transition duration-300 group-hover:border-[#a97c2f] group-hover:shadow-md">
+
         <div className="relative h-48 overflow-hidden rounded-sm bg-[#eadbc1] sm:h-56 lg:h-60">
+
           {aparicao.imagem_url && !erroImagem ? (
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -234,6 +237,7 @@ function ImagemAparicao({
           >
             ✦
           </span>
+
         </div>
       </div>
     </Link>
@@ -318,7 +322,10 @@ function InformacoesAparicao({
         className="mt-4 inline-flex w-fit items-center gap-2 border-b border-transparent font-serif text-base font-semibold text-[#14233f] transition hover:border-[#b28b49] hover:text-[#a97c2f]"
       >
         Conhecer a história
-        <span aria-hidden="true">→</span>
+
+        <span aria-hidden="true">
+          →
+        </span>
       </Link>
     </div>
   );
@@ -352,7 +359,10 @@ export default function LinhaDoTempo({
       );
   }, [aparicoes]);
 
+  // ====================================================
   // PESQUISA E FILTRO DE PERÍODO
+  // ====================================================
+
   const itensFiltrados = useMemo(() => {
     const termo = normalizarTexto(busca.trim());
 
@@ -390,9 +400,12 @@ export default function LinhaDoTempo({
       {/* ========================================== */}
 
       <div className="rounded-lg border border-[#c9a46a]/50 bg-[#fffaf0]/75 p-4 shadow-sm sm:p-5">
+
         <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+
           {/* PERÍODOS */}
           <div className="flex flex-wrap items-center gap-2">
+
             <span className="mr-2 font-serif text-sm font-semibold text-[#594936]">
               Filtrar por período:
             </span>
@@ -416,6 +429,7 @@ export default function LinhaDoTempo({
 
           {/* PESQUISA */}
           <div className="w-full xl:max-w-xs">
+
             <label
               htmlFor="pesquisa-linha-tempo"
               className="sr-only"
@@ -434,6 +448,7 @@ export default function LinhaDoTempo({
               className="w-full rounded-full border border-[#c9a46a]/70 bg-[#fffaf0] px-5 py-2.5 text-sm text-[#14233f] outline-none placeholder:text-[#92816a] focus:border-[#a97c2f] focus:ring-2 focus:ring-[#c9a46a]/25"
             />
           </div>
+
         </div>
       </div>
 
@@ -442,6 +457,7 @@ export default function LinhaDoTempo({
       {/* ========================================== */}
 
       <div className="mb-10 mt-6 flex flex-wrap items-center justify-between gap-3 font-serif text-sm text-[#765728]">
+
         <p role="status">
           <span className="font-semibold text-[#14233f]">
             {itensFiltrados.length}
@@ -468,13 +484,36 @@ export default function LinhaDoTempo({
 
       {itensFiltrados.length > 0 ? (
         <div className="relative">
-          {/* LINHA DOURADA VERTICAL */}
+
+          {/* ======================================== */}
+          {/* LINHA DOURADA VERTICAL — CORRIGIDA */}
+          {/* ======================================== */}
+
           <div
             aria-hidden="true"
-            className="absolute bottom-4 left-[14px] top-4 w-px bg-gradient-to-b from-transparent via-[#b28b49] to-transparent lg:left-1/2 lg:-translate-x-1/2"
+            className="
+              pointer-events-none
+              absolute
+              bottom-4
+              left-3.5
+              top-4
+              z-0
+              w-[2px]
+              lg:left-1/2
+              lg:-translate-x-1/2
+            "
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom, transparent 0%, #b28b49 4%, #b28b49 96%, transparent 100%)",
+            }}
           />
 
-          <ol className="relative space-y-12 lg:space-y-16">
+          {/* ======================================== */}
+          {/* APARIÇÕES EM ORDEM CRONOLÓGICA */}
+          {/* ======================================== */}
+
+          <ol className="relative z-10 space-y-12 lg:space-y-16">
+
             {itensFiltrados.map((aparicao, index) => {
               const imagemEsquerda = index % 2 === 0;
 
@@ -483,16 +522,40 @@ export default function LinhaDoTempo({
                   key={aparicao.slug}
                   className="relative pl-10 lg:pl-0"
                 >
+                  {/* ================================== */}
                   {/* MARCADOR CENTRAL */}
+                  {/* ================================== */}
+
                   <span
                     aria-hidden="true"
-                    className="absolute left-[6px] top-7 z-10 flex h-[17px] w-[17px] items-center justify-center rounded-full border-[3px] border-[#b28b49] bg-[#f7f0df] shadow-sm lg:left-1/2 lg:-translate-x-1/2"
+                    className="
+                      absolute
+                      left-1.5
+                      top-7
+                      z-10
+                      flex
+                      h-4.25
+                      w-4.25
+                      items-center
+                      justify-center
+                      rounded-full
+                      border-[3px]
+                      border-[#b28b49]
+                      bg-[#f7f0df]
+                      shadow-sm
+                      lg:left-1/2
+                      lg:-translate-x-1/2
+                    "
                   >
-                    <span className="h-[7px] w-[7px] rounded-full bg-[#14233f]" />
+                    <span className="h-1.75 w-1.75 rounded-full bg-[#14233f]" />
                   </span>
 
+                  {/* ================================== */}
                   {/* IMAGEM + INFORMAÇÕES */}
+                  {/* ================================== */}
+
                   <div className="grid min-w-0 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_44px_minmax(0,1fr)] lg:items-center lg:gap-4">
+
                     {/* IMAGEM */}
                     <div
                       className={
@@ -521,14 +584,21 @@ export default function LinhaDoTempo({
                         }
                       />
                     </div>
+
                   </div>
                 </li>
               );
             })}
+
           </ol>
         </div>
       ) : (
+        /* ========================================== */
+        /* NENHUMA APARIÇÃO ENCONTRADA */
+        /* ========================================== */
+
         <div className="rounded-lg border border-[#c9a46a]/50 bg-[#fffaf0]/70 px-6 py-12 text-center">
+
           <span
             aria-hidden="true"
             className="font-serif text-4xl text-[#b28b49]"
@@ -555,15 +625,20 @@ export default function LinhaDoTempo({
               Mostrar todas as aparições
             </button>
           )}
+
         </div>
       )}
 
+      {/* ========================================== */}
       {/* ORNAMENTO NO FIM DA LINHA */}
+      {/* ========================================== */}
+
       {itensFiltrados.length > 0 && (
         <div className="mt-14">
           <Ornamento />
         </div>
       )}
+
     </div>
   );
 }

@@ -86,13 +86,13 @@ export default async function Page() {
   const aparicoes = await listarAparicoesPublicadas();
 
   return (
-    <main className="min-h-screen bg-[#f7f0df] text-[#14233f]">
+    <main className="min-h-screen text-[#14233f]">
 
       {/* ================================================= */}
       {/* 1. CABEÇALHO COM PERGAMINHO E NOSSA SENHORA */}
       {/* ================================================= */}
 
-      <section className="relative isolate min-h-[390px] overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
+      <section className="relative isolate min-h-97.5 overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
 
         {/* IMAGEM DE NOSSA SENHORA AO FUNDO */}
         <div
@@ -136,9 +136,9 @@ export default async function Page() {
         />
 
         {/* CONTEÚDO DO CABEÇALHO */}
-        <div className="relative mx-auto flex min-h-[390px] max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-97.5 max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
 
-          <div className="w-full max-w-[660px]">
+          <div className="w-full max-w-165">
 
             {/* IDENTIFICAÇÃO DO PROJETO */}
             <div className="mb-6 flex items-center gap-3">
@@ -176,32 +176,11 @@ export default async function Page() {
       </section>
 
       {/* ================================================= */}
-      {/* 2. CONTEÚDO COM FUNDO EM ESTILO PERGAMINHO */}
+      {/* 2. CONTEÚDO — FUNDO DEFINIDO NO GLOBALS.CSS */}
       {/* ================================================= */}
 
-      <div
-        className="relative"
-        style={{
-          backgroundImage: `
-            radial-gradient(
-              ellipse at 15% 20%,
-              rgba(201,164,106,0.12),
-              transparent 48%
-            ),
-            radial-gradient(
-              ellipse at 85% 80%,
-              rgba(201,164,106,0.12),
-              transparent 48%
-            ),
-            linear-gradient(
-              135deg,
-              #fbf6e9 0%,
-              #f7f0df 55%,
-              #f1e5d0 100%
-            )
-          `,
-        }}
-      >
+      <div className="relative">
+
         <div className="mx-auto max-w-7xl px-6 pb-20 pt-7 sm:px-10">
 
           {/* CAMINHO DE NAVEGAÇÃO */}
@@ -233,6 +212,7 @@ export default async function Page() {
 
         </div>
       </div>
+
     </main>
   );
 }

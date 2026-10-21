@@ -1,5 +1,7 @@
 
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,11 +16,12 @@ import {
   listarAparicoesPublicadas,
 } from "@/lib/aparicoes";
 
-import {
-  listarCuriosidadesPublicadas,
-} from "@/lib/curiosidades";
+import { listarCuriosidadesPublicadas } from "@/lib/curiosidades";
 
-// SEO da página inicial
+// ======================================================
+// SEO DA PÁGINA INICIAL
+// ======================================================
+
 const titulo = "Caminhos de Maria";
 
 const descricao =
@@ -58,6 +61,117 @@ export const metadata: Metadata = {
   },
 };
 
+// ======================================================
+// ORNAMENTOS REUTILIZÁVEIS
+// ======================================================
+
+function FlorDeLis({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`font-serif leading-none text-[#ad813e] ${className}`}
+    >
+      ⚜
+    </span>
+  );
+}
+
+function Separador({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`flex items-center gap-3 text-[#b28b49] ${className}`}
+    >
+      <span className="h-px flex-1 bg-[#b28b49]/60" />
+
+      <svg
+        viewBox="0 0 40 40"
+        className="h-6 w-6 shrink-0"
+        fill="currentColor"
+      >
+        <path d="M20 2C22 12 28 18 38 20C28 22 22 28 20 38C18 28 12 22 2 20C12 18 18 12 20 2Z" />
+
+        <circle
+          cx="20"
+          cy="20"
+          r="4"
+          fill="#f7f0df"
+        />
+      </svg>
+
+      <span className="h-px flex-1 bg-[#b28b49]/60" />
+    </div>
+  );
+}
+
+// ======================================================
+// TÍTULO PADRONIZADO DAS SEÇÕES
+// ======================================================
+
+function TituloSecao({
+  children,
+  href,
+  textoLink,
+}: {
+  children: ReactNode;
+  href: string;
+  textoLink: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-4">
+
+      {/* TÍTULO COM ORNAMENTO */}
+      <div>
+        <div className="flex items-center gap-3">
+          <FlorDeLis className="text-3xl sm:text-4xl" />
+
+          <h2 className="font-serif text-2xl font-semibold text-[#14233f] sm:text-3xl">
+            {children}
+          </h2>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="ml-11 mt-3 flex items-center gap-2"
+        >
+          <span className="h-px w-20 bg-[#b28b49]/70" />
+
+          <span className="text-xs text-[#b28b49]">
+            ✦
+          </span>
+
+          <span className="h-px w-10 bg-[#b28b49]/70" />
+        </div>
+      </div>
+
+      {/* LINK PARA A PÁGINA COMPLETA */}
+      <Link
+        href={href}
+        className="mb-1 inline-flex items-center gap-2 font-serif text-sm font-semibold text-[#98723e] transition hover:gap-3 hover:text-[#14233f]"
+      >
+        {textoLink}
+
+        <span aria-hidden="true">
+          →
+        </span>
+      </Link>
+
+    </div>
+  );
+}
+
+// ======================================================
+// PÁGINA INICIAL
+// ======================================================
+
 export default async function Home() {
   // Busca os dados publicados no Supabase
   const [
@@ -71,10 +185,17 @@ export default async function Home() {
   ]);
 
   return (
-    <main className="bg-[#f7f3e9]">
+    <main className="min-h-screen text-[#14233f]">
 
-      {/* BANNER PRINCIPAL */}
-      <section className="relative h-95 w-full md:h-125">
+      {/* ================================================= */}
+      {/* 1. BANNER PRINCIPAL */}
+      {/* ================================================= */}
+
+      <section
+        aria-label="Apresentação do Caminhos de Maria"
+        className="relative h-95 w-full overflow-hidden md:h-125"
+      >
+        {/* IMAGEM ORIGINAL DO BANNER */}
         <Image
           src="/imagens/banner-home/nossas-senhoras-2.png"
           alt="Nossa Senhora de Fátima com os três pastorinhos"
@@ -82,49 +203,92 @@ export default async function Home() {
           priority
           sizes="100vw"
           className="object-cover"
-          style={{ objectPosition: "50% 75%" }}
+          style={{
+            objectPosition: "50% 75%",
+
+            // Faz a imagem desaparecer gradualmente,
+            // revelando o fundo global do globals.css.
+            WebkitMaskImage: `
+              linear-gradient(
+                to bottom,
+                black 0%,
+                black 60%,
+                rgba(0, 0, 0, 0.85) 72%,
+                rgba(0, 0, 0, 0.4) 88%,
+                transparent 100%
+              )
+            `,
+
+            maskImage: `
+              linear-gradient(
+                to bottom,
+                black 0%,
+                black 60%,
+                rgba(0, 0, 0, 0.85) 72%,
+                rgba(0, 0, 0, 0.4) 88%,
+                transparent 100%
+              )
+            `,
+          }}
         />
 
-        {/* Degradê que dissolve a imagem na cor do fundo */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-[#f7f3e9]" />
       </section>
 
-      {/* TÍTULO E BUSCA */}
-      <section className="relative z-10 -mt-1 px-6 pb-14 text-center">
-        <h1 className="font-serif text-2xl text-stone-900 md:text-3xl">
-          Conheça a história das aparições
-        </h1>
+      {/* ================================================= */}
+      {/* 2. TÍTULO PRINCIPAL E BUSCA */}
+      {/* ================================================= */}
 
-        <div className="mt-5 flex justify-center">
-          <BuscaAparicao />
+      <section className="relative z-10 -mt-1 px-6 pb-14 text-center">
+
+        <div className="mx-auto max-w-4xl">
+
+          {/* ORNAMENTO SUPERIOR */}
+          <FlorDeLis className="text-4xl" />
+
+          {/* TÍTULO PRINCIPAL */}
+          <h1 className="mt-4 font-serif text-3xl font-semibold leading-tight text-[#14233f] sm:text-4xl lg:text-5xl">
+            Conheça a história das aparições
+          </h1>
+
+          {/* SEPARADOR DOURADO */}
+          <div className="mx-auto mt-5 max-w-70">
+            <Separador />
+          </div>
+
+          {/* DESCRIÇÃO */}
+          <p className="mx-auto mt-5 max-w-2xl font-serif text-base leading-7 text-[#594936] sm:text-lg">
+            Uma jornada pela história, pela fé e pela devoção
+            a Nossa Senhora através dos séculos.
+          </p>
+
+          {/* BUSCA ORIGINAL */}
+          <div className="mt-7 flex justify-center">
+            <BuscaAparicao />
+          </div>
+
         </div>
       </section>
 
-      {/* APARIÇÕES EM DESTAQUE */}
+      {/* ================================================= */}
+      {/* 3. APARIÇÕES EM DESTAQUE */}
+      {/* FUNDO DEFINIDO NO GLOBALS.CSS */}
+      {/* ================================================= */}
+
       {destaques.length > 0 && (
-        <section
-          className="px-6 pb-14 pt-20"
-          style={{
-            background:
-              "linear-gradient(to bottom, #f7f3e9 0%, #f7f3e9 25%, #f7f3e9 100%)",
-          }}
-        >
+        <section className="px-6 pb-16 pt-12 sm:pt-16">
+
           <div className="mx-auto max-w-6xl">
 
-            <div className="flex items-end justify-between">
-              <h2 className="font-serif text-2xl text-[#a97c2f]">
-                Aparições em destaque
-              </h2>
+            {/* TÍTULO E LINK */}
+            <TituloSecao
+              href="/aparicoes"
+              textoLink="Ver todas"
+            >
+              Aparições em destaque
+            </TituloSecao>
 
-              <Link
-                href="/aparicoes"
-                className="text-sm text-[#a97c2f] hover:underline"
-              >
-                Ver todas
-              </Link>
-            </div>
-
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* CARDS ORIGINAIS */}
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {destaques.map((aparicao) => (
                 <CardAparicaoDestaque
                   key={aparicao.slug}
@@ -137,27 +301,31 @@ export default async function Home() {
         </section>
       )}
 
-      {/* DIVISOR */}
+      {/* ================================================= */}
+      {/* 4. DIVISOR DECORATIVO */}
+      {/* ================================================= */}
+
       <Divisor />
 
-      {/* LINHA DO TEMPO */}
-      <section className="bg-[#f7f3e9] px-6 pb-16 pt-4">
+      {/* ================================================= */}
+      {/* 5. LINHA DO TEMPO */}
+      {/* FUNDO DEFINIDO NO GLOBALS.CSS */}
+      {/* ================================================= */}
+
+      <section className="px-6 pb-20 pt-8 sm:pt-12">
+
         <div className="mx-auto max-w-6xl">
 
-          <div className="flex items-end justify-between">
-            <h2 className="font-serif text-2xl text-[#a97c2f]">
-              Linha do tempo
-            </h2>
+          {/* TÍTULO E LINK */}
+          <TituloSecao
+            href="/linha-do-tempo"
+            textoLink="Ver completa"
+          >
+            Linha do tempo
+          </TituloSecao>
 
-            <Link
-              href="/linha-do-tempo"
-              className="text-sm text-[#a97c2f] hover:underline"
-            >
-              Ver completa
-            </Link>
-          </div>
-
-          <div className="mt-8">
+          {/* LINHA DO TEMPO ORIGINAL */}
+          <div className="mt-10">
             <LinhaDoTempoResumo
               aparicoes={aparicoesPublicadas}
             />
@@ -166,20 +334,62 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CURIOSIDADES - VOCÊ SABIA? */}
+      {/* ================================================= */}
+      {/* 6. CURIOSIDADES — VOCÊ SABIA? */}
+      {/* ================================================= */}
+
       {curiosidades.length > 0 && (
-        <section className="bg-[#f7f3e9]">
+        <section>
 
-          {/* CABEÇALHO DA SEÇÃO */}
-          <div className="bg-[#14233f] px-6 pb-52 pt-16">
-            <div className="mx-auto max-w-6xl text-center">
+          {/* ============================================= */}
+          {/* CABEÇALHO AZUL-MARINHO */}
+          {/* ============================================= */}
 
-              <h2 className="font-serif text-3xl font-semibold uppercase tracking-wide text-[#d5b685]">
-                Você sabia?{" "}
-                <span aria-hidden="true">✦</span>
+          <div className="relative isolate overflow-hidden border-t border-[#c9a46a]/50 bg-[#14233f] px-6 pb-52 pt-16">
+
+            {/* ILUSTRAÇÃO DE NOSSA SENHORA AO FUNDO */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10 bg-[url('/imagens/background-footer.png')] bg-cover bg-right bg-no-repeat opacity-35"
+            />
+
+            {/* DEGRADÊ PARA LEITURA DO TEXTO */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-[#14233f]/95 via-[#14233f]/80 to-[#14233f]/60"
+            />
+
+            <div className="relative mx-auto max-w-6xl text-center">
+
+              {/* ORNAMENTO SUPERIOR */}
+              <span
+                aria-hidden="true"
+                className="font-serif text-3xl text-[#d5b685]"
+              >
+                ✦
+              </span>
+
+              {/* TÍTULO */}
+              <h2 className="mt-3 font-serif text-3xl font-semibold uppercase tracking-[0.08em] text-[#d5b685] sm:text-4xl">
+                Você sabia?
               </h2>
 
-              <p className="mt-2 text-[#e6dcce]">
+              {/* SEPARADOR DOURADO */}
+              <div
+                aria-hidden="true"
+                className="mx-auto mt-6 flex max-w-65 items-center gap-3 text-[#d5b685]"
+              >
+                <span className="h-px flex-1 bg-[#d5b685]/70" />
+
+                <span className="font-serif text-xl">
+                  ✦
+                </span>
+
+                <span className="h-px flex-1 bg-[#d5b685]/70" />
+              </div>
+
+              {/* DESCRIÇÃO */}
+              <p className="mx-auto mt-5 max-w-2xl font-serif text-base leading-7 text-[#e6dcce] sm:text-lg">
                 Curiosidades e fatos fascinantes sobre as
                 aparições de Nossa Senhora pelo mundo.
               </p>
@@ -187,13 +397,19 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* CARROSSEL DE CURIOSIDADES */}
+          {/* ============================================= */}
+          {/* CARROSSEL ORIGINAL */}
+          {/* FUNDO GLOBAL DO PERGAMINHO */}
+          {/* ============================================= */}
+
           <div className="relative z-10 -mt-44 px-6 pb-16">
+
             <div className="mx-auto max-w-6xl">
               <CarrosselCuriosidades
                 curiosidades={curiosidades}
               />
             </div>
+
           </div>
 
         </section>

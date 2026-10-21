@@ -90,6 +90,7 @@ function Separador({
         fill="currentColor"
       >
         <path d="M20 2C22 12 28 18 38 20C28 22 22 28 20 38C18 28 12 22 2 20C12 18 18 12 20 2Z" />
+
         <circle
           cx="20"
           cy="20"
@@ -120,9 +121,11 @@ function TituloSecao({
 
       <div className="ml-12 mt-3 flex items-center gap-2">
         <span className="h-px w-24 bg-[#b28b49]/70" />
+
         <span className="text-xs text-[#b28b49]">
           ✦
         </span>
+
         <span className="h-px w-12 bg-[#b28b49]/70" />
       </div>
     </div>
@@ -135,13 +138,13 @@ function TituloSecao({
 
 export default function SobrePage() {
   return (
-    <main className="min-h-screen bg-[#f7f0df] text-[#42382d]">
+    <main className="min-h-screen text-[#42382d]">
 
       {/* ================================================= */}
       {/* 1. HERO — SOBRE NÓS */}
       {/* ================================================= */}
 
-      <section className="relative isolate min-h-[390px] overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
+      <section className="relative isolate min-h-97.5 overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
 
         {/* IMAGEM DE NOSSA SENHORA EM TODA A LARGURA */}
         <div
@@ -174,11 +177,10 @@ export default function SobrePage() {
           className="pointer-events-none absolute inset-0 -z-10 bg-[#f7f0df]/75 lg:hidden"
         />
 
-        {/* CONTEÚDO CENTRALIZADO NA MESMA LARGURA DO SITE */}
-        <div className="relative mx-auto flex min-h-[390px] max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
+        {/* CONTEÚDO DO CABEÇALHO */}
+        <div className="relative mx-auto flex min-h-97.5 max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
 
-          {/* TEXTO À ESQUERDA */}
-          <div className="w-full max-w-[610px]">
+          <div className="w-full max-w-152.5">
 
             {/* IDENTIFICAÇÃO DO PROJETO */}
             <div className="mb-6 flex items-center gap-3">
@@ -189,7 +191,7 @@ export default function SobrePage() {
               </span>
             </div>
 
-            {/* TÍTULO NORMAL */}
+            {/* TÍTULO */}
             <h1 className="font-serif text-5xl font-medium leading-tight text-[#14233f] sm:text-6xl lg:text-7xl">
               Sobre Nós
             </h1>
@@ -212,30 +214,17 @@ export default function SobrePage() {
       </section>
 
       {/* ================================================= */}
-      {/* 2. MISSÃO E VISÃO */}
+      {/* 2. MISSÃO E VISÃO — FUNDO DO GLOBALS.CSS */}
       {/* ================================================= */}
 
-      <section className="relative overflow-hidden px-6 py-16 sm:px-10 lg:py-20">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                135deg,
-                #fbf6e9 0%,
-                #f7f0df 55%,
-                #f1e5d0 100%
-              )
-            `,
-          }}
-        />
+      <section className="relative px-6 py-16 sm:px-10 lg:py-20">
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
 
           {/* IMAGEM HISTÓRICA */}
           <div className="relative">
-            <div className="relative h-[340px] overflow-hidden rounded-tl-[45px] rounded-br-[45px] border border-[#c9a46a]/70 bg-[#eee0c6] shadow-md sm:h-[430px]">
+
+            <div className="relative h-85 overflow-hidden rounded-tl-[45px] rounded-br-[45px] border border-[#c9a46a]/70 bg-[#eee0c6] shadow-md sm:h-107.5">
               <Image
                 src="/imagens/sobre/santuario-mariano.png"
                 alt="Santuário mariano, símbolo de fé e peregrinação"
@@ -258,10 +247,12 @@ export default function SobrePage() {
             >
               ✦
             </span>
+
           </div>
 
           {/* MISSÃO E VISÃO */}
           <div className="space-y-12">
+
             <div>
               <TituloSecao>
                 Nossa Missão
@@ -297,16 +288,19 @@ export default function SobrePage() {
                 na devoção a Nossa Senhora.
               </p>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* ================================================= */}
-      {/* 3. NOSSOS PILARES */}
+      {/* 3. NOSSOS PILARES — FUNDO DO GLOBALS.CSS */}
       {/* ================================================= */}
 
-      <section className="border-y border-[#c9a46a]/35 bg-[#f2e5cd]/60 px-6 py-16 sm:px-10">
+      <section className="border-y border-[#c9a46a]/35 px-6 py-16 sm:px-10">
+
         <div className="mx-auto max-w-6xl">
+
           <div className="mb-12 text-center">
             <h2 className="font-serif text-3xl font-semibold text-[#14233f] sm:text-4xl">
               Nossos Pilares
@@ -325,6 +319,7 @@ export default function SobrePage() {
 
             {/* HISTÓRIA */}
             <div className="px-5 text-center md:border-r md:border-[#b28b49]/50">
+
               <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
                 <BookOpen
                   size={43}
@@ -342,10 +337,12 @@ export default function SobrePage() {
                 aparições, com informações organizadas
                 e fundamentadas em fontes confiáveis.
               </p>
+
             </div>
 
             {/* DEVOÇÃO */}
             <div className="px-5 text-center md:border-r md:border-[#b28b49]/50">
+
               <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
                 <HandHeart
                   size={43}
@@ -363,10 +360,12 @@ export default function SobrePage() {
                 Nossa Senhora e sua presença na vida
                 de oração e na tradição da Igreja.
               </p>
+
             </div>
 
             {/* ACESSO */}
             <div className="px-5 text-center">
+
               <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#b28b49] text-[#a97c2f]">
                 <Globe2
                   size={43}
@@ -384,6 +383,7 @@ export default function SobrePage() {
                 países em um único lugar, com conteúdo
                 acessível e fácil de navegar.
               </p>
+
             </div>
           </div>
         </div>
@@ -391,13 +391,16 @@ export default function SobrePage() {
 
       {/* ================================================= */}
       {/* 4. POR QUE ESTE PROJETO? */}
+      {/* FUNDO DO GLOBALS.CSS */}
       {/* ================================================= */}
 
       <section className="px-6 py-16 sm:px-10 lg:py-20">
+
         <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
 
           {/* QUADRO COM CITAÇÃO BÍBLICA */}
           <div className="relative border border-[#b28b49] bg-[#fff9ed]/70 px-8 py-14 text-center shadow-sm sm:px-12">
+
             <span
               aria-hidden="true"
               className="absolute left-2 top-1 font-serif text-3xl text-[#b28b49]"
@@ -430,17 +433,19 @@ export default function SobrePage() {
               “Fazei tudo o que Ele vos disser.”
             </p>
 
-            <div className="mx-auto my-6 max-w-[220px]">
+            <div className="mx-auto my-6 max-w-55">
               <Separador />
             </div>
 
             <p className="font-serif text-sm font-semibold tracking-wide text-[#14233f]">
               João 2,5
             </p>
+
           </div>
 
           {/* ORIGEM DO PROJETO */}
           <div>
+
             <TituloSecao>
               Por que este projeto?
             </TituloSecao>
@@ -468,19 +473,22 @@ export default function SobrePage() {
               tornar essa jornada de conhecimento mais
               simples, organizada e inspiradora.
             </p>
+
           </div>
         </div>
       </section>
 
       {/* ================================================= */}
-      {/* 5. NOSSO COMPROMISSO */}
+      {/* 5. NOSSO COMPROMISSO — FUNDO DO GLOBALS.CSS */}
       {/* ================================================= */}
 
-      <section className="relative isolate overflow-hidden border-y border-[#c9a46a]/30 bg-[#f2e5cd]/50">
+      <section className="relative isolate overflow-hidden border-y border-[#c9a46a]/30">
+
         <div className="mx-auto grid max-w-7xl items-center lg:grid-cols-2">
 
           {/* TEXTO */}
           <div className="relative z-10 px-6 py-16 sm:px-10 lg:py-20">
+
             <TituloSecao>
               Nosso Compromisso
             </TituloSecao>
@@ -501,6 +509,7 @@ export default function SobrePage() {
             </p>
 
             <div className="mt-7 flex items-center gap-3 text-[#b28b49]">
+
               <Heart
                 size={19}
                 strokeWidth={1.5}
@@ -510,11 +519,13 @@ export default function SobrePage() {
               <span className="font-serif text-sm italic text-[#765728]">
                 Feito com fé, dedicação e devoção.
               </span>
+
             </div>
           </div>
 
           {/* IMAGEM */}
-          <div className="relative h-[340px] sm:h-[430px] lg:h-full lg:min-h-[440px]">
+          <div className="relative h-85 sm:h-107.5 lg:h-full lg:min-h-110">
+
             <Image
               src="/imagens/sobre/nossa-senhora-fatima.png"
               alt="Representação de Nossa Senhora de Fátima"
@@ -523,20 +534,24 @@ export default function SobrePage() {
               className="object-cover object-center"
             />
 
+            {/* DEGRADÊ LOCAL DA IMAGEM */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#f2e5cd]/45 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#f2e5cd] lg:via-[#f2e5cd]/15 lg:to-transparent"
+              className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#f7f0df]/45 via-transparent to-transparent lg:bg-linear-to-r lg:from-[#f7f0df] lg:via-[#f7f0df]/15 lg:to-transparent"
             />
+
           </div>
         </div>
       </section>
 
       {/* ================================================= */}
-      {/* 6. CHAMADA FINAL */}
+      {/* 6. CHAMADA FINAL — FUNDO DO GLOBALS.CSS */}
       {/* ================================================= */}
 
       <section className="px-6 py-16 text-center sm:px-10 lg:py-20">
+
         <div className="mx-auto max-w-3xl">
+
           <FlorDeLis className="text-4xl" />
 
           <h2 className="mt-5 font-serif text-3xl font-semibold text-[#14233f] sm:text-4xl">
@@ -553,7 +568,9 @@ export default function SobrePage() {
             esperança e devoção.
           </p>
 
+          {/* BOTÕES */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+
             <Link
               href="/aparicoes"
               className="inline-flex items-center gap-2 rounded-md border border-[#14233f] bg-[#14233f] px-7 py-3 font-serif font-semibold text-[#f7f0df] transition hover:bg-[#263e61]"
@@ -577,9 +594,11 @@ export default function SobrePage() {
                 aria-hidden="true"
               />
             </Link>
+
           </div>
         </div>
       </section>
+
     </main>
   );
 }

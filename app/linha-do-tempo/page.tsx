@@ -99,13 +99,13 @@ export default async function Page() {
     );
 
   return (
-    <main className="min-h-screen bg-[#f7f0df] text-[#14233f]">
+    <main className="min-h-screen text-[#14233f]">
 
       {/* ================================================= */}
       {/* 1. CABEÇALHO EM ESTILO PERGAMINHO */}
       {/* ================================================= */}
 
-      <section className="relative isolate min-h-[390px] overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
+      <section className="relative isolate min-h-97.5 overflow-hidden border-b border-[#c9a46a]/40 bg-[#f7f0df]">
 
         {/* IMAGEM DE NOSSA SENHORA AO FUNDO */}
         <div
@@ -149,9 +149,9 @@ export default async function Page() {
         />
 
         {/* CONTEÚDO DO CABEÇALHO */}
-        <div className="relative mx-auto flex min-h-[390px] max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-97.5 max-w-7xl items-center px-6 py-16 sm:px-10 lg:py-20">
 
-          <div className="w-full max-w-[660px]">
+          <div className="w-full max-w-165">
 
             {/* IDENTIFICAÇÃO */}
             <div className="mb-6 flex items-center gap-3">
@@ -191,32 +191,11 @@ export default async function Page() {
       </section>
 
       {/* ================================================= */}
-      {/* 2. CONTEÚDO COM FUNDO DE PERGAMINHO */}
+      {/* 2. CONTEÚDO — FUNDO DEFINIDO NO GLOBALS.CSS */}
       {/* ================================================= */}
 
-      <div
-        className="relative"
-        style={{
-          backgroundImage: `
-            radial-gradient(
-              ellipse at 15% 15%,
-              rgba(201,164,106,0.13),
-              transparent 45%
-            ),
-            radial-gradient(
-              ellipse at 85% 75%,
-              rgba(201,164,106,0.11),
-              transparent 50%
-            ),
-            linear-gradient(
-              135deg,
-              #fbf6e9 0%,
-              #f7f0df 50%,
-              #f2e6d0 100%
-            )
-          `,
-        }}
-      >
+      <div className="relative">
+
         <div className="mx-auto max-w-7xl px-6 pb-20 pt-7 sm:px-10">
 
           {/* CAMINHO DE NAVEGAÇÃO */}

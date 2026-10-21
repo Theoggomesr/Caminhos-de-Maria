@@ -1,6 +1,6 @@
 export default function Divisor() {
   return (
-    <div className="bg-[#f7f3e9] px-6 py-6" aria-hidden="true">
+    <div className=" px-6 py-6" aria-hidden="true">
       <div className="mx-auto flex max-w-sm items-center gap-4">
         {/* linha da esquerda */}
         <div className="h-px flex-1 bg-[#c9a46a]/70" />

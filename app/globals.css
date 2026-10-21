@@ -1,45 +1,191 @@
+
 @import "tailwindcss";
 
+/* ==========================================
+   CORES PADRÃO — CAMINHOS DE MARIA
+========================================== */
+
 :root {
-  --background: #f7f3e9;
+  /* Pergaminho */
+  --background: #f7f0df;
+  --pergaminho-claro: #fbf6e9;
+  --pergaminho-escuro: #f1e5d0;
+
+  /* Identidade visual */
   --foreground: #292524;
+  --azul-marinho: #14233f;
+  --dourado: #c9a46a;
+  --dourado-claro: #d5b685;
+  --texto-pergaminho: #42382d;
 }
+
+/* ==========================================
+   INTEGRAÇÃO COM TAILWIND CSS
+========================================== */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-pergaminho: var(--background);
+  --color-pergaminho-claro: var(--pergaminho-claro);
+  --color-pergaminho-escuro: var(--pergaminho-escuro);
+
+  --color-marinho: var(--azul-marinho);
+  --color-dourado: var(--dourado);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+/* ==========================================
+   FUNDO GLOBAL
+========================================== */
+
+html {
+  min-height: 100%;
+  background-color: var(--background);
 }
+
+body {
+  min-height: 100vh;
+
+  color: var(--foreground);
+
+  font-family:
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background-color: var(--background);
+
+  background-image:
+    radial-gradient(
+      ellipse at 15% 15%,
+      rgba(201, 164, 106, 0.13),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 85% 75%,
+      rgba(201, 164, 106, 0.11),
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--pergaminho-claro) 0%,
+      var(--background) 55%,
+      var(--pergaminho-escuro) 100%
+    );
+
+  background-repeat: no-repeat;
+}
+
+/* ==========================================
+   CLASSES REUTILIZÁVEIS
+========================================== */
+
+/* Fundo de pergaminho com degradê */
+.fundo-pergaminho {
+  background-color: var(--background);
+
+  background-image:
+    radial-gradient(
+      ellipse at 15% 15%,
+      rgba(201, 164, 106, 0.13),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 85% 75%,
+      rgba(201, 164, 106, 0.11),
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--pergaminho-claro) 0%,
+      var(--background) 55%,
+      var(--pergaminho-escuro) 100%
+    );
+}
+
+/* Fundo sólido de pergaminho */
+.fundo-pergaminho-solido {
+  background-color: var(--background);
+}
+
+/* Fundo azul-marinho */
+.fundo-marinho {
+  background-color: var(--azul-marinho);
+}
+
+/* Texto dourado */
+.texto-dourado {
+  color: var(--dourado);
+}
+
+/* ==========================================
+   CABEÇALHO COM NUVENS
+   PRESERVADO DO CÓDIGO ORIGINAL
+========================================== */
 
 .header-clouds {
   background-color: #dbeafe;
+
   background-image:
-    radial-gradient(ellipse 130px 38px at 12% 62%, rgba(255, 255, 255, 0.95), transparent 70%),
-    radial-gradient(ellipse 170px 46px at 22% 38%, rgba(255, 255, 255, 0.9), transparent 70%),
-    radial-gradient(ellipse 110px 34px at 38% 70%, rgba(255, 255, 255, 0.85), transparent 70%),
-    radial-gradient(ellipse 190px 50px at 55% 30%, rgba(255, 255, 255, 0.95), transparent 70%),
-    radial-gradient(ellipse 140px 40px at 70% 65%, rgba(255, 255, 255, 0.9), transparent 70%),
-    radial-gradient(ellipse 160px 44px at 88% 42%, rgba(255, 255, 255, 0.85), transparent 70%);
+    radial-gradient(
+      ellipse 130px 38px at 12% 62%,
+      rgba(255, 255, 255, 0.95),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 170px 46px at 22% 38%,
+      rgba(255, 255, 255, 0.9),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 110px 34px at 38% 70%,
+      rgba(255, 255, 255, 0.85),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 190px 50px at 55% 30%,
+      rgba(255, 255, 255, 0.95),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 140px 40px at 70% 65%,
+      rgba(255, 255, 255, 0.9),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 160px 44px at 88% 42%,
+      rgba(255, 255, 255, 0.85),
+      transparent 70%
+    );
+
   background-size: 700px 100%;
   background-repeat: repeat-x;
+
   animation: cloud-drift 120s linear infinite;
 }
+
+/* ==========================================
+   ANIMAÇÃO DAS NUVENS
+========================================== */
 
 @keyframes cloud-drift {
   from {
     background-position: 0 0;
   }
+
   to {
     background-position: 700px 0;
   }
 }
+
+/* ==========================================
+   ACESSIBILIDADE — MOVIMENTO REDUZIDO
+========================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .header-clouds {
@@ -47,7 +193,11 @@ body {
   }
 }
 
+/* ==========================================
+   FUNDO DO MAPA
+   PRESERVADO DO CÓDIGO ORIGINAL
+========================================== */
+
 .background-mapa {
   background-color: #dbeafe;
 }
-
